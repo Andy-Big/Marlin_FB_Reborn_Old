@@ -1,5 +1,5 @@
 # Прошивка Marlin 3D Printer для принтера Flyingbear Reborn с платой MKS Robin Nano v1.3 (со съемными драйверами)
-Основана на Marlin версии 2.0.9.2
+Основана на ![Marlin версии 2.0.9.2](https://github.com/MarlinFirmware/Marlin)
 
 Плата, для которой предназначена эта прошивка:
 ![Board](IMG/IMG_20211003_175204.jpg)
