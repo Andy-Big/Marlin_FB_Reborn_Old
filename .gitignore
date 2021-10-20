@@ -42,6 +42,7 @@ applet/
 *.ii
 *.swp
 tags
+__EXTRAS/
 
 #
 # C++
