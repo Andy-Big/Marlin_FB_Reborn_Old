@@ -55,11 +55,11 @@
 ## История
 ### 26.10.2021
 **v1.1**
-- активирован Linear Advance, работающий в том числе с драйверами TMC2208/TMC2225 без необходимости каких-либо изменений в железе
+- **активирован Linear Advance, работающий в том числе с драйверами TMC2208/TMC2225 без необходимости каких-либо изменений в железе**
+- **изменен дизайн и расширена функциональность главного экрана как в режиме ожидания, так и в режиме печати - фактически это теперь новый интерфейс**
 - изменены лимиты скоростей по осям
 - увеличены скорость и ускорение по умолчанию по Z
 - настроены параметры датчика окончания филамента
-- изменен дизайн и расширена функциональность главного экрана как в режиме ожидания, так и в режиме печати - фактически это теперь новый интерфейс
 - из меню убраны пункты возврата на предыдущий уровень, которые везде занимали верхнюю строчку, возврат теперь только по кнопке внизу в центре экрана
 - из меню убраны пункты, дублирующие функциональность главного экрана и ненужные
 - активирован пункт меню информации о принтере, в котором доступна основная версия Марлина с версией MarlinRB
@@ -130,11 +130,11 @@ Attention! Make sure your printer has a compatible control board!
 ## History
 ### 10.26.2021
 **v1.1**
-- Linear Advance is activated, which also works with the TMC2208/TMC2225 drivers without the need for any hardware changes
+- **Linear Advance is activated, which also works with the TMC2208/TMC2225 drivers without the need for any hardware changes**
+- **redesigned and expanded functionality of the main screen both in standby mode and in print mode - in fact, it is now a new interface**
 - changed the limits of speeds along the axes
 - increased speed and acceleration by default on Z
 - adjusted parameters of the filament end sensor
-- redesigned and expanded functionality of the main screen both in standby mode and in print mode - in fact, it is now a new interface
 - removed from the menu items for returning to the previous level, which occupied the top line everywhere, return now only by the button at the bottom in the center of the screen
 - items that duplicate the functionality of the main screen and are unnecessary have been removed from the menu
 - the menu item of information about the printer is activated, in which the main version of Marlin with the version of MarlinRB is available
