@@ -1,4 +1,4 @@
-[English](#-english-version)
+[English](#english-version)
 # Прошивка MarlinRB для принтера Flyingbear Reborn с платой MKS Robin Nano v1.3 (со съемными драйверами)
 ![Interface](IMG/main_screen_print_1.1.jpg)
 
