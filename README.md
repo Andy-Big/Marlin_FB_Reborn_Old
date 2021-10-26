@@ -75,12 +75,12 @@
 
 ## English version
 # MarlinRB firmware for Flyingbear Reborn printer with MKS Robin Nano v1.3 Board (with removable drivers)
-! [Interface](IMG/main_screen_1.1.jpg)
+![Interface](IMG/main_screen_1.1.jpg)
 
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
 
 The board this firmware is for:
-! [Board](IMG/IMG_20211003_175204.jpg)
+![Board](IMG/IMG_20211003_175204.jpg)
 
 ## The main thing
 (updated 11.26.2021)
@@ -99,7 +99,7 @@ The board this firmware is for:
 The home screen has been completely redesigned for both idle and print modes.
 
 ### New home screen in idle mode
-! [MainScreenStandby](IMG/main_screen_standby_1.1.jpg)
+![MainScreenStandby](IMG/main_screen_standby_1.1.jpg)
 The block with the coordinates of the axes has been removed, its place in the center of the screen is now occupied by the print progress bar. The X and Y axis coordinates in the vast majority of cases are not needed by the user on the home screen, so they are completely removed. The Z axis coordinate has been moved to the top status bar.
 A status bar has been added to the top of the screen that displays the Z-axis coordinate, current nozzle speed, and print time. In idle mode, the print time will show the time of the last completed print, or zeros if no print was performed after turning on the printer.
 The readings of the temperatures of the nozzle and the table, as well as the rotation of the cooler are indicated in one line under the corresponding icon. Changing the color of the icon is as follows:
@@ -112,7 +112,7 @@ Action icons are located under the print progress. For idle mode, there are thre
 At the very bottom of the screen there is a place for system or slicer messages (via the M117 code).
 
 ### New main screen in print mode
-! [MainScreenPrint](IMG/main_screen_print_1.1.jpg)
+![MainScreenPrint](IMG/main_screen_print_1.1.jpg)
 Everything here is similar to that of idle time, but with some changes.
 In the status line, the print time is supplemented by "/" with the estimated remaining print time. This indicator does not appear immediately, but one minute after the start of printing (not counting the waiting time for the heating of the table and nozzle). Up to this point, dashes are displayed there. The print time color is red while waiting for the nozzle or platen to heat up.
 Under the nozzle and table icons, the current temperature is supplemented by the set temperature.
