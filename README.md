@@ -53,7 +53,7 @@
 5. При первом обновлении прошивки со штатной система может после загрузки автоматически перейти в режим калибровки тач-дисплея.
 
 ## История
-### 26.11.2021
+### 26.10.2021
 **v1.1**
 - активирован Linear Advance, работающий в том числе с драйверами TMC2208/TMC2225 без необходимости каких-либо изменений в железе
 - изменены лимиты скоростей по осям
@@ -128,7 +128,7 @@ Attention! Make sure your printer has a compatible control board!
 5. At the first firmware update from the standard system, after loading, it can automatically switch to the touch-display calibration mode.
 
 ## History
-### 11.26.2021
+### 10.26.2021
 **v1.1**
 - Linear Advance is activated, which also works with the TMC2208/TMC2225 drivers without the need for any hardware changes
 - changed the limits of speeds along the axes
