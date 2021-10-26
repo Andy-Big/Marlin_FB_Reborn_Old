@@ -1536,6 +1536,7 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
   void MarlinUI::abort_print() {
     #if ENABLED(SDSUPPORT)
       wait_for_heatup = wait_for_user = false;
+      print_job_timer.heating_stop();
       card.abortFilePrintSoon();
     #endif
     #ifdef ACTION_ON_CANCEL
@@ -1588,6 +1589,10 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
   void MarlinUI::resume_print() {
     reset_status();
     TERN_(PARK_HEAD_ON_PAUSE, wait_for_heatup = wait_for_user = false);
+    if (wait_for_heatup)
+      print_job_timer.heating_start();
+    else
+      print_job_timer.heating_stop();
     TERN_(SDSUPPORT, if (IS_SD_PAUSED()) queue.inject_P(M24_STR));
     #ifdef ACTION_ON_RESUME
       host_action_resume();

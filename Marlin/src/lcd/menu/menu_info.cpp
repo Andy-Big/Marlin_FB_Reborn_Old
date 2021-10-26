@@ -30,6 +30,9 @@
 
 #include "menu_item.h"
 
+#include "../tft/tft_string.h"
+
+
 #if HAS_GAMES
   #include "game/game.h"
 #endif
@@ -276,14 +279,14 @@ void menu_info_board() {
 //
 void menu_info() {
   START_MENU();
-  BACK_ITEM(MSG_MAIN);
+  // BACK_ITEM(MSG_MAIN);
   #if ENABLED(LCD_PRINTER_INFO_IS_BOOTSCREEN)
     SUBMENU(MSG_INFO_PRINTER_MENU, TERN(SHOW_CUSTOM_BOOTSCREEN, menu_show_custom_bootscreen, menu_show_marlin_bootscreen));
   #else
     SUBMENU(MSG_INFO_PRINTER_MENU, menu_info_printer);           // Printer Info >
     SUBMENU(MSG_INFO_BOARD_MENU, menu_info_board);               // Board Info >
     #if HAS_EXTRUDERS
-      SUBMENU(MSG_INFO_THERMISTOR_MENU, menu_info_thermistors);  // Thermistors >
+      // SUBMENU(MSG_INFO_THERMISTOR_MENU, menu_info_thermistors);  // Thermistors >
     #endif
   #endif
 

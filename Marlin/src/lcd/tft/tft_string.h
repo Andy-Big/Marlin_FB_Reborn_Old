@@ -30,6 +30,7 @@ extern const uint8_t Helvetica12Bold[];
 
 extern const uint8_t Helvetica14[], Helvetica14ru[], Tahoma14[], Helvetica14_symbols[];
 extern const uint8_t Helvetica18[], Helvetica18ru[], Tahoma18[], Helvetica18_symbols[];
+extern const uint8_t Tahoma36bold_num[];
 
 #define NO_GLYPH          0xFF
 

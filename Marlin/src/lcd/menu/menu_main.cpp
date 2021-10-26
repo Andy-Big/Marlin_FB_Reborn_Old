@@ -114,7 +114,7 @@ void menu_configuration();
 
   void custom_menus_main() {
     START_MENU();
-    BACK_ITEM(MSG_MAIN);
+    // BACK_ITEM(MSG_MAIN);
 
     #define HAS_CUSTOM_ITEM_MAIN(N) (defined(MAIN_MENU_ITEM_##N##_DESC) && defined(MAIN_MENU_ITEM_##N##_GCODE))
 
@@ -232,7 +232,7 @@ void menu_main() {
   ;
 
   START_MENU();
-  BACK_ITEM(MSG_INFO_SCREEN);
+  // BACK_ITEM(MSG_INFO_SCREEN);
 
   #if ENABLED(SDSUPPORT)
 
@@ -311,6 +311,8 @@ void menu_main() {
     SUBMENU(MSG_MOTION, menu_motion);
   }
 
+  SUBMENU(MSG_CONFIGURATION, menu_configuration);
+
   #if HAS_CUTTER
     SUBMENU(MSG_CUTTER(MENU), STICKY_SCREEN(menu_spindle_laser));
   #endif
@@ -330,8 +332,6 @@ void menu_main() {
   #if ENABLED(MMU2_MENUS)
     if (!busy) SUBMENU(MSG_MMU2_MENU, menu_mmu2);
   #endif
-
-  SUBMENU(MSG_CONFIGURATION, menu_configuration);
 
   #if ENABLED(CUSTOM_MENU_MAIN)
     if (TERN1(CUSTOM_MENU_MAIN_ONLY_IDLE, !busy)) {
@@ -381,7 +381,7 @@ void menu_main() {
   #endif
 
   #if ENABLED(SDSUPPORT) && DISABLED(MEDIA_MENU_AT_TOP)
-    sdcard_menu_items();
+    // sdcard_menu_items();
   #endif
 
   #if HAS_SERVICE_INTERVALS

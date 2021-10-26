@@ -241,6 +241,20 @@ void Touch::touch(touch_control_t *control) {
     case MOVE_AXIS:
       ui.goto_screen((screenFunc_t)ui.move_axis_screen);
       break;
+    
+    case PRINT_PAUSE:
+      ui.pause_print();
+      break;
+
+    case PRINT_RESUME:
+      ui.resume_print();
+      break;
+
+    case PRINT_STOP:
+      ui.goto_screen([]{MenuItem_confirm::select_screen( GET_TEXT(MSG_BUTTON_STOP), GET_TEXT(MSG_BACK), ui.abort_print, ui.goto_previous_screen,
+                                                        GET_TEXT(MSG_STOP_PRINT), (const char *)nullptr, PSTR("?") );
+                        });
+      break;
 
     // TODO: TOUCH could receive data to pass to the callback
     case BUTTON: ((screenFunc_t)control->data)(); break;

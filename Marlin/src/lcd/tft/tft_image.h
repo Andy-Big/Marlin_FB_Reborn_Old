@@ -50,6 +50,8 @@ extern const uint8_t cancel_64x64x4[];
 extern const uint8_t increase_64x64x4[];
 extern const uint8_t decrease_64x64x4[];
 extern const uint8_t pause_64x64x4[];
+extern const uint8_t move_64x64x4[];
+extern const uint8_t resume_64x64x4[];
 
 extern const uint8_t feedrate_32x32x4[];
 extern const uint8_t flowrate_32x32x4[];
@@ -97,6 +99,9 @@ enum MarlinImage : uint8_t {
   imgHome,
   imgBtn52Rounded,
   imgBtn39Rounded,
+  imgMove,
+  imgPause,
+  imgResume,
   imgCount,
   noImage = imgCount,
   imgPageUp = imgLeft,
@@ -155,6 +160,8 @@ extern const tImage Cancel_64x64x4;
 extern const tImage Increase_64x64x4;
 extern const tImage Decrease_64x64x4;
 extern const tImage Pause_64x64x4;
+extern const tImage Move_64x64x4;
+extern const tImage Resume_64x64x4;
 
 extern const tImage Feedrate_32x32x4;
 extern const tImage Flowrate_32x32x4;

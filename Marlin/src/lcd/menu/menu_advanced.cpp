@@ -66,7 +66,7 @@ void menu_backlash();
     static xyze_uint8_t driverPercent;
     LOOP_LOGICAL_AXES(i) driverPercent[i] = stepper_dac.get_current_percent((AxisEnum)i);
     START_MENU();
-    BACK_ITEM(MSG_ADVANCED_SETTINGS);
+    // BACK_ITEM(MSG_ADVANCED_SETTINGS);
     #define EDIT_DAC_PERCENT(A) EDIT_ITEM(uint8, MSG_DAC_PERCENT_##A, &driverPercent[_AXIS(A)], 0, 100, []{ stepper_dac.set_current_percents(driverPercent); })
     LOGICAL_AXIS_CODE(EDIT_DAC_PERCENT(E), EDIT_DAC_PERCENT(A), EDIT_DAC_PERCENT(B), EDIT_DAC_PERCENT(C), EDIT_DAC_PERCENT(I), EDIT_DAC_PERCENT(J), EDIT_DAC_PERCENT(K));
     ACTION_ITEM(MSG_DAC_EEPROM_WRITE, stepper_dac.commit_eeprom);
@@ -81,7 +81,7 @@ void menu_backlash();
 
   void menu_pwm() {
     START_MENU();
-    BACK_ITEM(MSG_ADVANCED_SETTINGS);
+    // BACK_ITEM(MSG_ADVANCED_SETTINGS);
     #define EDIT_CURRENT_PWM(LABEL,I) EDIT_ITEM_P(long5, PSTR(LABEL), &stepper.motor_current_setting[I], 100, 2000, stepper.refresh_motor_power)
     #if ANY_PIN(MOTOR_CURRENT_PWM_XY, MOTOR_CURRENT_PWM_X, MOTOR_CURRENT_PWM_Y)
       EDIT_CURRENT_PWM(STR_X STR_Y, 0);
@@ -103,14 +103,14 @@ void menu_backlash();
   //
   void menu_advanced_filament() {
     START_MENU();
-    BACK_ITEM(MSG_ADVANCED_SETTINGS);
+    // BACK_ITEM(MSG_ADVANCED_SETTINGS);
 
     #if ENABLED(LIN_ADVANCE)
       #if EXTRUDERS == 1
-        EDIT_ITEM(float42_52, MSG_ADVANCE_K, &planner.extruder_advance_K[0], 0, 10);
+        EDIT_ITEM(float43, MSG_ADVANCE_K, &planner.extruder_advance_K[0], 0, 2);
       #elif HAS_MULTI_EXTRUDER
         LOOP_L_N(n, EXTRUDERS)
-          EDIT_ITEM_N(float42_52, n, MSG_ADVANCE_K_E, &planner.extruder_advance_K[n], 0, 10);
+          EDIT_ITEM_N(float43, n, MSG_ADVANCE_K_E, &planner.extruder_advance_K[n], 0, 2);
       #endif
     #endif
 
@@ -252,7 +252,7 @@ void menu_backlash();
 
   void menu_advanced_temperature() {
     START_MENU();
-    BACK_ITEM(MSG_ADVANCED_SETTINGS);
+    // BACK_ITEM(MSG_ADVANCED_SETTINGS);
     //
     // Autotemp, Min, Max, Fact
     //
@@ -366,7 +366,7 @@ void menu_backlash();
     #endif
 
     START_MENU();
-    BACK_ITEM(MSG_ADVANCED_SETTINGS);
+    // BACK_ITEM(MSG_ADVANCED_SETTINGS);
 
     #define EDIT_VMAX(N) EDIT_ITEM_FAST(float5, MSG_VMAX_##N, &planner.settings.max_feedrate_mm_s[_AXIS(N)], 1, max_fr_edit_scaled[_AXIS(N)])
     LINEAR_AXIS_CODE(EDIT_VMAX(A), EDIT_VMAX(B), EDIT_VMAX(C), EDIT_VMAX(I), EDIT_VMAX(J), EDIT_VMAX(K));
@@ -409,7 +409,7 @@ void menu_backlash();
     #endif
 
     START_MENU();
-    BACK_ITEM(MSG_ADVANCED_SETTINGS);
+    // BACK_ITEM(MSG_ADVANCED_SETTINGS);
 
     // M204 P Acceleration
     EDIT_ITEM_FAST(float5_25, MSG_ACC, &planner.settings.acceleration, 25, max_accel);
@@ -452,7 +452,7 @@ void menu_backlash();
 
     void menu_advanced_jerk() {
       START_MENU();
-      BACK_ITEM(MSG_ADVANCED_SETTINGS);
+      // BACK_ITEM(MSG_ADVANCED_SETTINGS);
 
       #if HAS_JUNCTION_DEVIATION
         #if ENABLED(LIN_ADVANCE)
@@ -497,7 +497,7 @@ void menu_backlash();
   #if HAS_BED_PROBE
     void menu_probe_offsets() {
       START_MENU();
-      BACK_ITEM(MSG_ADVANCED_SETTINGS);
+      // BACK_ITEM(MSG_ADVANCED_SETTINGS);
       #if HAS_PROBE_XY_OFFSET
         EDIT_ITEM(float31sign, MSG_ZPROBE_XOFFSET, &probe.offset.x, -(X_BED_SIZE), X_BED_SIZE);
         EDIT_ITEM(float31sign, MSG_ZPROBE_YOFFSET, &probe.offset.y, -(Y_BED_SIZE), Y_BED_SIZE);
@@ -517,7 +517,7 @@ void menu_backlash();
 // M92 Steps-per-mm
 void menu_advanced_steps_per_mm() {
   START_MENU();
-  BACK_ITEM(MSG_ADVANCED_SETTINGS);
+  // BACK_ITEM(MSG_ADVANCED_SETTINGS);
 
   #define EDIT_QSTEPS(Q) EDIT_ITEM_FAST(float51, MSG_##Q##_STEPS, &planner.settings.axis_steps_per_mm[_AXIS(Q)], 5, 9999, []{ planner.refresh_positioning(); })
   LINEAR_AXIS_CODE(
@@ -549,7 +549,7 @@ void menu_advanced_settings() {
   #endif
 
   START_MENU();
-  BACK_ITEM(MSG_CONFIGURATION);
+  // BACK_ITEM(MSG_CONFIGURATION);
 
   #if DISABLED(SLIM_LCD_MENUS)
 
@@ -609,10 +609,10 @@ void menu_advanced_settings() {
     SUBMENU(MSG_FILAMENT, menu_advanced_filament);
   #elif ENABLED(LIN_ADVANCE)
     #if EXTRUDERS == 1
-      EDIT_ITEM(float42_52, MSG_ADVANCE_K, &planner.extruder_advance_K[0], 0, 10);
+      EDIT_ITEM(float43, MSG_ADVANCE_K, &planner.extruder_advance_K[0], 0, 2);
     #elif HAS_MULTI_EXTRUDER
       LOOP_L_N(n, E_STEPPERS)
-        EDIT_ITEM_N(float42_52, n, MSG_ADVANCE_K_E, &planner.extruder_advance_K[n], 0, 10);
+        EDIT_ITEM_N(float43, n, MSG_ADVANCE_K_E, &planner.extruder_advance_K[n], 0, 2);
     #endif
   #endif
 

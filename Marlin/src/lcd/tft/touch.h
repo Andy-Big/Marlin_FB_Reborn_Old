@@ -66,6 +66,9 @@ enum TouchControlType : uint16_t {
   UBL,
   MOVE_AXIS,
   BUTTON,
+  PRINT_PAUSE,
+  PRINT_RESUME,
+  PRINT_STOP
 };
 
 typedef void (*screenFunc_t)();

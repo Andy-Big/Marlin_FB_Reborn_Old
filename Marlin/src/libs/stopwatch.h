@@ -43,6 +43,11 @@ class Stopwatch {
     static millis_t startTimestamp;
     static millis_t stopTimestamp;
 
+    static millis_t accumulatorHeat;
+    static millis_t startHeatTimestamp;
+    static millis_t stopHeatTimestamp;
+    static bool     heatRunning;
+
   public:
     /**
      * @brief Initialize the stopwatch
@@ -86,6 +91,10 @@ class Stopwatch {
      */
     static void reset();
 
+    static void heating_start();
+
+    static void heating_stop();
+
     /**
      * @brief Check if the timer is running
      * @details Return true if the timer is currently running, false otherwise.
@@ -106,6 +115,8 @@ class Stopwatch {
      * @return the delta since starting the stopwatch
      */
     static millis_t duration();
+
+    static millis_t durationHeat();
 
     #ifdef DEBUG_STOPWATCH
 

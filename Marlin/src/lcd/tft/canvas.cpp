@@ -66,7 +66,11 @@ void CANVAS::SetBackground(uint16_t color) {
 
 uint8_t canvas_read_byte(uint8_t *byte) { return *byte; }
 
-void CANVAS::AddText(uint16_t x, uint16_t y, uint16_t color, uint8_t *string, uint16_t maxWidth) {
+static glyph_t *Glyph(uint8_t *character, font_t *font)
+{
+}
+
+void CANVAS::AddText(uint16_t x, uint16_t y, uint16_t color, uint8_t *string, uint16_t maxWidth, font_t *font) {
   if (endLine < y || startLine > y + GetFontHeight()) return;
 
   if (maxWidth == 0) maxWidth = width - x;

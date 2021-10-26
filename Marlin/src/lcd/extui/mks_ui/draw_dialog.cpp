@@ -117,6 +117,7 @@ static void btn_ok_event_cb(lv_obj_t *btn, lv_event_t event) {
   }
   else if (DIALOG_IS(TYPE_STOP)) {
     wait_for_heatup = false;
+    print_job_timer.heating_stop();
     stop_print_time();
     lv_clear_dialog();
     lv_draw_ready_print();

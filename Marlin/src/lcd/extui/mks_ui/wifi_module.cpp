@@ -2028,6 +2028,7 @@ void get_wifi_commands() {
           // Process critical commands early
           if (strcmp(command, "M108") == 0) {
             wait_for_heatup = false;
+            print_job_timer.heating_stop();
             TERN_(HAS_LCD_MENU, wait_for_user = false);
           }
           if (strcmp(command, "M112") == 0) kill(M112_KILL_STR, nullptr, true);
