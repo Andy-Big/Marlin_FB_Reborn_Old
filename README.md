@@ -75,7 +75,7 @@
 
 ## English version
 # MarlinRB firmware for Flyingbear Reborn printer with MKS Robin Nano v1.3 Board (with removable drivers)
-![Interface](IMG/main_screen_1.1.jpg)
+![Interface](IMG/main_screen_print_1.1.jpg)
 
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
 
