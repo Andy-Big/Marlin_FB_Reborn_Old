@@ -22,9 +22,11 @@
 
 #include "../../../inc/MarlinConfigPre.h"
 
-#if BOTH(HAS_TFT_LVGL_UI, MKS_WIFI_MODULE)
+#if ENABLED(MKS_WIFI_MODULE)
 
-#include "draw_ui.h"
+#if BOTH(HAS_TFT_LVGL_UI, MKS_WIFI_MODULE)
+  #include "draw_ui.h"
+#endif
 #include "wifi_module.h"
 #include "wifi_upload.h"
 

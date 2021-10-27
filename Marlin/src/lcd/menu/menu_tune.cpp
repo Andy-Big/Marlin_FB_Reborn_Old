@@ -112,13 +112,13 @@ void menu_tune() {
   //
   // Speed:
   //
-  EDIT_ITEM(int3, MSG_SPEED, &feedrate_percentage, 10, 999);
+  EDIT_ITEM(int3, MSG_SPEED, &feedrate_percentage, 10, 500);
 
   //
   // Flow:
   //
   #if HAS_EXTRUDERS
-    EDIT_ITEM(int3, MSG_FLOW, &planner.flow_percentage[active_extruder], 10, 999, []{ planner.refresh_e_factor(active_extruder); });
+    EDIT_ITEM(int3, MSG_FLOW, &planner.flow_percentage[active_extruder], 50, 200, []{ planner.refresh_e_factor(active_extruder); });
     // Flow En:
     #if HAS_MULTI_EXTRUDER
       LOOP_L_N(n, EXTRUDERS)
@@ -148,7 +148,7 @@ void menu_tune() {
   //
   #if ENABLED(LIN_ADVANCE) && DISABLED(SLIM_LCD_MENUS)
     #if EXTRUDERS == 1
-      EDIT_ITEM(float43, MSG_ADVANCE_K, &planner.extruder_advance_K[0], 0, 2);
+      EDIT_ITEM(float43, MSG_ADVANCE_K, &planner.extruder_advance_K[0], 0, 0.5);
     #elif HAS_MULTI_EXTRUDER
       LOOP_L_N(n, EXTRUDERS)
         EDIT_ITEM_N(float43, n, MSG_ADVANCE_K_E, &planner.extruder_advance_K[n], 0, 2);

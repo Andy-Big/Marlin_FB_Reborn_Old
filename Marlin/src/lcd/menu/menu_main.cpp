@@ -224,12 +224,7 @@ void menu_configuration();
 #endif // CUSTOM_MENU_MAIN
 
 void menu_main() {
-  const bool busy = printingIsActive()
-    #if ENABLED(SDSUPPORT)
-      , card_detected = card.isMounted()
-      , card_open = card_detected && card.isFileOpen()
-    #endif
-  ;
+  const bool busy = printingIsActive();
 
   START_MENU();
   // BACK_ITEM(MSG_INFO_SCREEN);
@@ -240,30 +235,34 @@ void menu_main() {
       #define MEDIA_MENU_AT_TOP
     #endif
 
-    auto sdcard_menu_items = [&]{
-      #if ENABLED(MENU_ADDAUTOSTART)
-        ACTION_ITEM(MSG_RUN_AUTO_FILES, card.autofile_begin); // Run Auto Files
+    #if !ENABLED(RS_STYLE_COLOR_UI)
+      #if ENABLED(SDSUPPORT)
+        const bool card_open = card_detected && card.isFileOpen(), card_detected = card.isMounted();
       #endif
-
-      if (card_detected) {
-        if (!card_open) {
-          #if PIN_EXISTS(SD_DETECT)
-            GCODES_ITEM(MSG_CHANGE_MEDIA, PSTR("M21"));       // M21 Change Media
-          #else                                               // - or -
-            GCODES_ITEM(MSG_RELEASE_MEDIA, PSTR("M22"));      // M22 Release Media
-          #endif
-          SUBMENU(MSG_MEDIA_MENU, MEDIA_MENU_GATEWAY);        // Media Menu (or Password First)
-        }
-      }
-      else {
-        #if PIN_EXISTS(SD_DETECT)
-          ACTION_ITEM(MSG_NO_MEDIA, nullptr);                 // "No Media"
-        #else
-          GCODES_ITEM(MSG_ATTACH_MEDIA, PSTR("M21"));         // M21 Attach Media
+      auto sdcard_menu_items = [&]{
+        #if ENABLED(MENU_ADDAUTOSTART)
+          ACTION_ITEM(MSG_RUN_AUTO_FILES, card.autofile_begin); // Run Auto Files
         #endif
-      }
-    };
 
+        if (card_detected) {
+          if (!card_open) {
+            #if PIN_EXISTS(SD_DETECT)
+              GCODES_ITEM(MSG_CHANGE_MEDIA, PSTR("M21"));       // M21 Change Media
+            #else                                               // - or -
+              GCODES_ITEM(MSG_RELEASE_MEDIA, PSTR("M22"));      // M22 Release Media
+            #endif
+            SUBMENU(MSG_MEDIA_MENU, MEDIA_MENU_GATEWAY);        // Media Menu (or Password First)
+          }
+        }
+        else {
+          #if PIN_EXISTS(SD_DETECT)
+            ACTION_ITEM(MSG_NO_MEDIA, nullptr);                 // "No Media"
+          #else
+            GCODES_ITEM(MSG_ATTACH_MEDIA, PSTR("M21"));         // M21 Attach Media
+          #endif
+        }
+      };
+    #endif    // !ENABLED(RS_STYLE_COLOR_UI)
   #endif
 
   if (busy) {

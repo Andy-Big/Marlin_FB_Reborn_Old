@@ -35,6 +35,7 @@
 #include "../../module/printcounter.h"
 #include "../../module/planner.h"
 #include "../../module/motion.h"
+#include "../language/language_en.h"
 
 #if DISABLED(LCD_PROGRESS_BAR) && BOTH(FILAMENT_LCD_DISPLAY, SDSUPPORT)
   #include "../../feature/filwidth.h"
@@ -69,7 +70,7 @@ void MarlinUI::tft_idle() {
     #if ENABLED(BOOT_MARLIN_LOGO_SMALL)
       #define BOOT_LOGO_W 195   // MarlinLogo195x59x16
       #define BOOT_LOGO_H  59
-      #define SITE_URL_Y (TFT_HEIGHT - 70)
+      #define SITE_URL_Y (TFT_HEIGHT - 55)    // must be enough for 2 lines
       tft.set_background(COLOR_BACKGROUND);
     #else
       #define BOOT_LOGO_W TFT_WIDTH   // MarlinLogo480x320x16
@@ -77,11 +78,15 @@ void MarlinUI::tft_idle() {
       #define SITE_URL_Y (TFT_HEIGHT - 90)
     #endif
     tft.add_image((TFT_WIDTH - BOOT_LOGO_W) / 2, (TFT_HEIGHT - BOOT_LOGO_H) / 2, imgBootScreen);
+    
+    tft_string.set(Language_en::MSG_MARLIN);
+    tft_string.add(" v");
+    tft_string.add(SHORT_REBORN_VERSION);
+    tft.add_text(tft_string.center(TFT_WIDTH), SITE_URL_Y, COLOR_WEBSITE_URL, tft_string);
     #ifdef WEBSITE_URL
       tft_string.set(WEBSITE_URL);
-      tft.add_text(tft_string.center(TFT_WIDTH), SITE_URL_Y, COLOR_WEBSITE_URL, tft_string);
+      tft.add_text(tft_string.center(TFT_WIDTH), SITE_URL_Y+25, COLOR_WEBSITE_URL, tft_string);
     #endif
-
     tft.queue.sync();
   }
 
@@ -292,7 +297,6 @@ void MarlinUI::draw_status_screen() {
   const bool blink = get_blink();
 
   static bool       prev_is_printing = 0;
-  bool              is_printing = (printJobOngoing() || printingIsPaused());
 
   TERN_(TOUCH_SCREEN, touch.clear());
 
@@ -312,7 +316,6 @@ void MarlinUI::draw_status_screen() {
   tft.add_text(8, y, COLOR_TOP_FRAME_TEXT , "Z:");
 
   bool not_homed = axis_should_home(X_AXIS) | axis_should_home(Y_AXIS) | axis_should_home(Z_AXIS);
-  uint16_t offset = 32;
   if (blink && not_homed)
     tft_string.set("?");
   else {
@@ -411,6 +414,9 @@ void MarlinUI::draw_status_screen() {
     tft.add_bar(2, 2, ((TFT_WIDTH - 5) * progress) / 100, 78, COLOR_PROGRESS_BAR);
   tft_string.set(pcttostrpctrj(progress));
   tft_string.trim();
+  tft_string.add("  (");
+  tft_string.add(ftostr32_52(e_move_accumulator / 1000));
+  tft_string.add("m)");
   tft.add_text(240 - tft_string.width() / 2, 8, COLOR_PROGRESS_TEXT, tft_string);
 
   // file name
@@ -634,15 +640,82 @@ void MarlinUI::draw_status_screen() {
 }
 
 // Low-level draw_edit_screen can be used to draw an edit screen from anyplace
-void MenuEditItemBase::draw_edit_screen(PGM_P const pstr, const char * const value/*=nullptr*/) {
+void MenuEditItemBase::draw_edit_screen(PGM_P const pstr, const char * const value) {
   ui.encoder_direction_normal();
   TERN_(TOUCH_SCREEN, touch.clear());
 
+#if ENABLED(RS_STYLE_COLOR_UI)
+  // Name of editable field
+  uint16_t cy = 10;
+  tft.canvas(0, cy, TFT_WIDTH, MENU_ITEM_HEIGHT);
+  tft.set_background(COLOR_BACKGROUND);
+  tft_string.set(pstr, itemIndex, itemString);
+  tft_string.trim();
+  tft.add_text(tft_string.center(TFT_WIDTH), MENU_TEXT_Y_OFFSET, COLOR_MENU_TEXT, tft_string);
+
+  TERN_(AUTO_BED_LEVELING_UBL, if (ui.external_control) line++);  // ftostr52() will overwrite *value so *value has to be displayed first
+
+  // current value
+  cy += MENU_ITEM_HEIGHT;
+  tft.canvas(0, cy, TFT_WIDTH, MENU_ITEM_HEIGHT);
+  tft.set_background(COLOR_BACKGROUND);
+  tft_string.set(value);
+  tft_string.trim();
+  tft.add_text(tft_string.center(TFT_WIDTH), MENU_TEXT_Y_OFFSET, COLOR_MENU_VALUE, tft_string);
+
+  #if ENABLED(AUTO_BED_LEVELING_UBL)
+    if (ui.external_control) {
+      menu_line(line - 1);
+
+      tft_string.set(X_LBL);
+      tft.add_text((TFT_WIDTH / 2 - 120), MENU_TEXT_Y_OFFSET, COLOR_MENU_TEXT, tft_string);
+      tft_string.set(ftostr52(LOGICAL_X_POSITION(current_position.x)));
+      tft_string.trim();
+      tft.add_text((TFT_WIDTH / 2 - 16) - tft_string.width(), MENU_TEXT_Y_OFFSET, COLOR_MENU_VALUE, tft_string);
+
+      tft_string.set(Y_LBL);
+      tft.add_text((TFT_WIDTH / 2 + 16), MENU_TEXT_Y_OFFSET, COLOR_MENU_TEXT, tft_string);
+      tft_string.set(ftostr52(LOGICAL_X_POSITION(current_position.y)));
+      tft_string.trim();
+      tft.add_text((TFT_WIDTH / 2 + 120) - tft_string.width(), MENU_TEXT_Y_OFFSET, COLOR_MENU_VALUE, tft_string);
+    }
+  #endif
+
+  // predefined values
+  cy += MENU_ITEM_HEIGHT;
+  if (predefValues.count > 0)
+  {
+
+  }
+
+  cy += MENU_ITEM_HEIGHT;
+  extern screenFunc_t _manual_move_func_ptr;
+  if (ui.currentScreen != _manual_move_func_ptr && !ui.external_control) {
+
+    #define SLIDER_LENGTH 336
+    #define SLIDER_Y_POSITION 206
+
+    tft.canvas((TFT_WIDTH - SLIDER_LENGTH) / 2, SLIDER_Y_POSITION, SLIDER_LENGTH, 16);
+    tft.set_background(COLOR_BACKGROUND);
+
+    int16_t position = (SLIDER_LENGTH - 2) * ui.encoderPosition / maxEditValue;
+    tft.add_bar(0, 7, 1, 2, ui.encoderPosition == 0 ? COLOR_SLIDER_INACTIVE : COLOR_SLIDER);
+    tft.add_bar(1, 6, position, 4, COLOR_SLIDER);
+    tft.add_bar(position + 1, 6, SLIDER_LENGTH - 2 - position, 4, COLOR_SLIDER_INACTIVE);
+    tft.add_bar(SLIDER_LENGTH - 1, 7, 1, 2, int32_t(ui.encoderPosition) == maxEditValue ? COLOR_SLIDER : COLOR_SLIDER_INACTIVE);
+
+    #if ENABLED(TOUCH_SCREEN)
+      tft.add_image((SLIDER_LENGTH - 8) * ui.encoderPosition / maxEditValue, 0, imgSlider, COLOR_SLIDER);
+      touch.add_control(SLIDER, (TFT_WIDTH - SLIDER_LENGTH) / 2, SLIDER_Y_POSITION - 8, SLIDER_LENGTH, 32, maxEditValue);
+    #endif
+  }
+#else // ENABLED(RS_STYLE_COLOR_UI)
   uint16_t line = 1;
 
   menu_line(line++);
   tft_string.set(pstr, itemIndex, itemString);
   tft_string.trim();
+  tft_string.add(" __TEST__");
   tft.add_text(tft_string.center(TFT_WIDTH), MENU_TEXT_Y_OFFSET, COLOR_MENU_TEXT, tft_string);
 
   TERN_(AUTO_BED_LEVELING_UBL, if (ui.external_control) line++);  // ftostr52() will overwrite *value so *value has to be displayed first
@@ -690,6 +763,7 @@ void MenuEditItemBase::draw_edit_screen(PGM_P const pstr, const char * const val
       touch.add_control(SLIDER, (TFT_WIDTH - SLIDER_LENGTH) / 2, SLIDER_Y_POSITION - 8, SLIDER_LENGTH, 32, maxEditValue);
     #endif
   }
+#endif // ENABLED(RS_STYLE_COLOR_UI)
 
   tft.draw_edit_screen_buttons();
 }

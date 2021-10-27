@@ -708,7 +708,7 @@
   //#define PID_DEBUG             // Sends debug data to the serial port. Use 'M303 D' to toggle activation.
   //#define PID_OPENLOOP          // Puts PID in open loop. M104/M140 sets the output power from 0 to PID_MAX
   //#define SLOW_PWM_HEATERS      // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
-  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 20 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
 #endif
 
@@ -938,7 +938,7 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 800 }
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 821 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -947,9 +947,9 @@
  */
 #define DEFAULT_MAX_FEEDRATE          { 250, 250, 50, 25 }
 
-//#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
+#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
-  #define MAX_FEEDRATE_EDIT_VALUES    { 600, 600, 10, 50 } // ...or, set your own edit limits
+  #define MAX_FEEDRATE_EDIT_VALUES    { 400, 400, 100, 50 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -960,9 +960,9 @@
  */
 #define DEFAULT_MAX_ACCELERATION      { 1500, 1500, 200, 10000 }
 
-//#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
+#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
-  #define MAX_ACCEL_EDIT_VALUES       { 6000, 6000, 200, 20000 } // ...or, set your own edit limits
+  #define MAX_ACCEL_EDIT_VALUES       { 4000, 4000, 300, 15000 } // ...or, set your own edit limits
 #endif
 
 /**
@@ -996,9 +996,9 @@
 
   //#define TRAVEL_EXTRA_XYJERK 0.0     // Additional jerk allowance for all travel moves
 
-  //#define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
+  #define LIMITED_JERK_EDITING        // Limit edit via M205 or LCD to DEFAULT_aJERK * 2
   #if ENABLED(LIMITED_JERK_EDITING)
-    #define MAX_JERK_EDIT_VALUES { 20, 20, 0.6, 10 } // ...or, set your own edit limits
+    #define MAX_JERK_EDIT_VALUES { 20, 20, 0.6, 20 } // ...or, set your own edit limits
   #endif
 #endif
 
@@ -1025,7 +1025,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-//#define S_CURVE_ACCELERATION
+#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -2823,6 +2823,12 @@
 
   #define TOUCH_SCREEN_CALIBRATION
 
+  /* MKS Robin Nano v1.3 (FB Reborn)*/
+  // #define TOUCH_CALIBRATION_X   -151
+  // #define TOUCH_CALIBRATION_Y  11248
+  // #define TOUCH_OFFSET_X         501
+  // #define TOUCH_OFFSET_Y          -8
+
   /* MKS Robin TFT v2.0 */
   // #define TOUCH_CALIBRATION_X 19013
   // #define TOUCH_CALIBRATION_Y -11711
@@ -2852,6 +2858,8 @@
     #define RS_STYLE_COLOR_UI       // New style of Main screen (RebornStyle)
   #endif
 #endif
+
+//#define MKS_WIFI_MODULE  // MKS WiFi module
 
 //
 // RepRapWorld REPRAPWORLD_KEYPAD v1.1

@@ -147,6 +147,11 @@
 #else
   //#define POWER_LOSS_PIN                  PA2   // PW_DET
   //#define PS_ON_PIN                       PB2   // PW_OFF
+  #if ENABLED(MKS_WIFI_MODULE)
+    #define WIFI_IO0_PIN                      PC13
+    #define WIFI_IO1_PIN                      PC7
+    #define WIFI_RESET_PIN                    PA5
+  #endif
   #define FIL_RUNOUT_PIN                    PA4
   #define FIL_RUNOUT2_PIN                   PE6
 #endif

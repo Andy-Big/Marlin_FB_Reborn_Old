@@ -45,6 +45,13 @@ typedef void (*selectFunc_t)();
   #define BABYSTEP_TO_STR(N) ftostr53sign(N)
 #endif
 
+typedef struct
+{
+  uint8_t   count;
+  void      *values[4];
+} EditScreenPreValues;
+
+
 ////////////////////////////////////////////
 ///////////// Base Menu Items //////////////
 ////////////////////////////////////////////
@@ -149,6 +156,7 @@ class MenuEditItemBase : public MenuItemBase {
     // into behavior and unused items get optimized out.
     static PGM_P editLabel;
     static void *editValue;
+    static EditScreenPreValues predefValues;
     static int32_t minEditValue, maxEditValue;  // Encoder value range
     static screenFunc_t callbackFunc;
     static bool liveEdit;

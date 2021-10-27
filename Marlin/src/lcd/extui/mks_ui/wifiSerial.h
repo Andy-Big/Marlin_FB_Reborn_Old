@@ -32,7 +32,9 @@
 #define WIFI_RX_BUF_SIZE  (1024)
 #define WIFI_TX_BUF_SIZE  (64)
 
-#include "tft_lvgl_configuration.h"
+#if BOTH(HAS_TFT_LVGL_UI, MKS_WIFI_MODULE)
+  #include "tft_lvgl_configuration.h"
+#endif
 
 #ifdef __STM32F1__
   #include "wifiSerial_STM32F1.h"

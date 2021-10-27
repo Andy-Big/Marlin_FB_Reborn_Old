@@ -30,6 +30,7 @@
 
 #include "menu_item.h"
 #include "../../sd/cardreader.h"
+#include "../tft/tft.h"
 
 void lcd_sd_updir() {
   ui.encoderPosition = card.cdup() ? ENCODER_STEPS_PER_MENU_ITEM : 0;
@@ -129,16 +130,19 @@ void menu_media_filelist() {
   else if (card.isMounted())
     ACTION_ITEM_P(PSTR(LCD_STR_FOLDER " .."), lcd_sd_updir);
 
-  if (ui.should_draw()) for (uint16_t i = 0; i < fileCnt; i++) {
-    if (_menuLineNr == _thisItemNr) {
-      card.getfilename_sorted(SD_ORDER(i, fileCnt));
-      if (card.flag.filenameIsDir)
-        MENU_ITEM(sdfolder, MSG_MEDIA_MENU, card);
+  if (ui.should_draw())
+  {
+    for (uint16_t i = 0; i < fileCnt; i++) {
+      if (_menuLineNr == _thisItemNr) {
+        card.getfilename_sorted(SD_ORDER(i, fileCnt));
+        if (card.flag.filenameIsDir)
+          MENU_ITEM(sdfolder, MSG_MEDIA_MENU, card);
+        else
+          MENU_ITEM(sdfile, MSG_MEDIA_MENU, card);
+      }
       else
-        MENU_ITEM(sdfile, MSG_MEDIA_MENU, card);
+        SKIP_ITEM();
     }
-    else
-      SKIP_ITEM();
   }
   END_MENU();
 }

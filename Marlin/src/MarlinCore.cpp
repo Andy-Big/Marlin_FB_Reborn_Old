@@ -240,6 +240,10 @@
   #include "feature/power.h"
 #endif
 
+#if ENABLED(MKS_WIFI_MODULE)
+  #include "lcd/extui/mks_ui/wifi_module.h"
+#endif
+
 PGMSTR(M112_KILL_STR, "M112 Shutdown");
 
 MarlinState marlin_state = MF_INITIALIZING;
@@ -1622,6 +1626,7 @@ void loop() {
     endstops.event_handler();
 
     TERN_(HAS_TFT_LVGL_UI, printer_state_polling());
+    TERN_(MKS_WIFI_MODULE, wifi_looping());
 
   } while (ENABLED(__AVR__)); // Loop forever on slower (AVR) boards
 }

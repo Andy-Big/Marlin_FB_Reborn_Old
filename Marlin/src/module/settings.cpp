@@ -55,6 +55,9 @@
 #include "../gcode/gcode.h"
 #include "../MarlinCore.h"
 
+#include "../lcd/tft/tft_string.h"
+#include "../libs/numtostr.h"
+
 #if EITHER(EEPROM_SETTINGS, SD_FIRMWARE_UPDATE)
   #include "../HAL/shared/eeprom_api.h"
 #endif
@@ -3300,6 +3303,20 @@ void MarlinSettings::reset() {
     #endif
 
     TERN_(HAS_MULTI_LANGUAGE, gcode.M414_report(forReplay));
+
+    CONFIG_ECHO_HEADING("Touch calibration values");
+    tft_string.set("#define TOUCH_CALIBRATION_X ");
+    tft_string.add(i32tostr6rj(touch_calibration.calibration.x));
+    SERIAL_ECHOLN((char*)(tft_string.string()));
+    tft_string.set("#define TOUCH_CALIBRATION_Y ");
+    tft_string.add(i32tostr6rj(touch_calibration.calibration.y));
+    SERIAL_ECHOLN((char*)(tft_string.string()));
+    tft_string.set("#define TOUCH_OFFSET_X      ");
+    tft_string.add(i32tostr6rj(touch_calibration.calibration.offset_x));
+    SERIAL_ECHOLN((char*)(tft_string.string()));
+    tft_string.set("#define TOUCH_OFFSET_Y      ");
+    tft_string.add(i32tostr6rj(touch_calibration.calibration.offset_y));
+    SERIAL_ECHOLN((char*)(tft_string.string()));
   }
 
 #endif // !DISABLE_M503

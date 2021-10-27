@@ -25,12 +25,13 @@
 
 #include "../../../inc/MarlinConfigPre.h"
 
+#if ENABLED(MKS_WIFI_MODULE)
 #if BOTH(HAS_TFT_LVGL_UI, MKS_WIFI_MODULE)
-
-#include "tft_lvgl_configuration.h"
-
-#include "draw_ui.h"
+  #include "tft_lvgl_configuration.h"
+  #include "draw_ui.h"
+#endif
 #include "wifiSerial.h"
+#include <pins_arduino.h>
 
 WifiSerial WifiSerial1(USART1);
 
