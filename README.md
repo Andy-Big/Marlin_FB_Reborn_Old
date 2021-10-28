@@ -1,11 +1,8 @@
 [English](#english-version)
-# Прошивка MarlinRB для принтера Flyingbear Reborn с платой MKS Robin Nano v1.3 (со съемными драйверами)
-![Interface](IMG/main_screen_print_1.1.jpg)
+# Прошивка MarlinRB для принтера Flyingbear Reborn с платами MKS Robin Nano v1.3 (съемные драйвера, контроллер STM32F407), MKS Robin Nano S v1.3 (несъемные драйвера, контроллер STM32F407) и MKS Robin Nano v1.2 (съемные драйвера, контроллер STM32F103). 
+![Interface](IMG/IMG_20211026_223227.jpg)
 
 Основана на [Marlin 3D Printer Firmware](https://github.com/MarlinFirmware/Marlin)  версии 2.0.9.2
-
-Плата, для которой предназначена эта прошивка:
-![Board](IMG/IMG_20211003_175204.jpg)
 
 ## Главное
 Обновлено 26.11.2021
@@ -19,6 +16,7 @@
 - по умолчанию стоит ограничение на ускорения осей - 3000 мм/сек\*сек, скорость - 250 мм/сек
 - интерфейс - стандартный графический с измененным главным экраном
 - выбор языка интерфейса - английский или русский
+- WiFi интерфейс для управления принтером и передачи файлов
 
 ## Новый главный экран интерфейса
 Главный экран был полностью переработан для обоих режимов - в простое и при печати.
@@ -52,14 +50,18 @@
 4. В течении 10-15 секунд принтер должен обновить прошивку. Процесс обновления отображается на дисплее.
 5. При первом обновлении прошивки со штатной система может после загрузки автоматически перейти в режим калибровки тач-дисплея.
 
+## Настройка WiFi
+К сожалению, настройка WiFi (имя точки доступа и пароль) пока нинака не реализована. Чтобы настроить работу WiFi, нужно сделать это в родной прошивке (от MKS), после чего можно обновляться на эту прошивку. Параметры настройки сохранятся.
+
 ## История
-### --.--.2021
+### 28.10.2021
 **v1.2**
+- **добавлена поддержка WiFi (на основе исходников Сергея - https://github.com/Sergey1560)**
+- **добавлены варианты прошивки для плат MKS Robin Nano S V1.3 и MKS Robin Nano V1.2**
 - небольшие правки по режимам движения
 - добавлен счетчик потраченного в процессе задания филамента, отображается в полосе прогрессе после процентов выполнения задания
 - добавлен вывод значений калибровки тач-панели по команде M503
 - ограничены максимальные значения в слайдерах настроек цифровых параметров
-- 
 
 ### 26.10.2021
 **v1.1**
@@ -82,13 +84,10 @@
 
 
 ## English version
-# MarlinRB firmware for Flyingbear Reborn printer with MKS Robin Nano v1.3 Board (with removable drivers)
-![Interface](IMG/main_screen_print_1.1.jpg)
+# MarlinRB firmware for Flyingbear Reborn printer with MKS Robin Nano v1.3 (removable drivers, STM32F407 controller), MKS Robin Nano S v1.3 (non-removable drivers, STM32F407 controller) and MKS Robin Nano v1.2 (removable drivers, STM32F103 controller ).
+![Interface](IMG/IMG_20211026_223227.jpg)
 
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
-
-The board this firmware is for:
-![Board](IMG/IMG_20211003_175204.jpg)
 
 ## The main thing
 (updated 11.26.2021)
@@ -102,6 +101,7 @@ The board this firmware is for:
 - by default, there is a limit on the acceleration of the axes - 3000 mm/s\*s, speed - 250 mm/s
 - interface - standard graphical with a modified main screen
 - choice of interface language - English or Russian
+- WiFi interface for printer control and file transfer
 
 # New main interface screen
 The home screen has been completely redesigned for both idle and print modes.
@@ -134,6 +134,19 @@ Attention! Make sure your printer has a compatible control board!
 3. Turn off the printer, insert a memory card into it, turn on the printer.
 4. Within 10-15 seconds, the printer should update the firmware. The update process is shown on the display.
 5. At the first firmware update from the standard system, after loading, it can automatically switch to the touch-display calibration mode.
+
+## WiFi setup
+Unfortunately, the WiFi setting (hotspot name and password) has not been implemented yet. To set up WiFi, you need to do it in the native firmware (from MKS), after which you can update to this firmware. The settings will be saved.
+
+## History
+### 10.28.2021
+**v1.2**
+- **added WiFi support (based on Sergey's sources - https://github.com/Sergey1560)**
+- **added firmware options for MKS Robin Nano S V1.3 and MKS Robin Nano V1.2**
+- minor edits for driving modes
+- added a counter of the filament spent in the process of the task, it is displayed in the progress bar after the percentage of the task completion
+- added display of touch panel calibration values ​​by command M503
+- the maximum values ​​in the sliders of the digital parameters are limited
 
 ## History
 ### 10.26.2021

@@ -75,6 +75,10 @@ void mks_upload_screen(char *filename, uint32_t file_size){
         tft.add_text(tft_string.center(TFT_WIDTH), 100, COLOR_CONTROL_ENABLED, tft_string);
         tft_string.set(filename);
         tft.add_text(tft_string.center(TFT_WIDTH), 140, COLOR_CONTROL_ENABLED, tft_string);
+
+        tft_string.set(ftostr32_62(total_size));
+        tft_string.add(" MB ");
+        tft.add_text(tft_string.center(TFT_WIDTH), 180, COLOR_CONTROL_ENABLED, tft_string);
         tft.queue.sync();
       #endif
 }

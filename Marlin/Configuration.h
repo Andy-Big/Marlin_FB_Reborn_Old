@@ -38,7 +38,7 @@
  * Advanced settings can be found in Configuration_adv.h
  */
 #define CONFIGURATION_H_VERSION 02000902
-#define REBORN_FW_VERSION 0101
+#define REBORN_FW_VERSION 0102
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -129,7 +129,7 @@
 
 #define MKS_WIFI
 #if ENABLED(MKS_WIFI)
-  #define SHOW_PROGRESS
+//  #define SHOW_PROGRESS
   #define SERIAL_PORT_2 1
   #define BAUDRATE_2 115200   // Enable to override BAUDRATE
 #endif
@@ -944,7 +944,11 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 821 }
+#if ENABLED(MOTHERBOARD_SV1_3)
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 408 }
+#else
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 821 }
+#endif
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1338,9 +1342,15 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
-#define INVERT_Y_DIR true
-#define INVERT_Z_DIR true
+#if ENABLED(MOTHERBOARD_SV1_3)
+  #define INVERT_X_DIR true
+  #define INVERT_Y_DIR false
+  #define INVERT_Z_DIR false
+#else
+  #define INVERT_X_DIR false
+  #define INVERT_Y_DIR true
+  #define INVERT_Z_DIR true
+#endif
 //#define INVERT_I_DIR false
 //#define INVERT_J_DIR false
 //#define INVERT_K_DIR false
@@ -1348,7 +1358,11 @@
 // @section extruder
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
-#define INVERT_E0_DIR true
+#if ENABLED(MOTHERBOARD_SV1_3)
+  #define INVERT_E0_DIR false
+#else
+  #define INVERT_E0_DIR true
+#endif
 #define INVERT_E1_DIR false
 #define INVERT_E2_DIR false
 #define INVERT_E3_DIR false

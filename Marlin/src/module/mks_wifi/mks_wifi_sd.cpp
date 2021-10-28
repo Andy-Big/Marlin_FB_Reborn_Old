@@ -238,7 +238,7 @@ void mks_wifi_start_file_upload(ESP_PROTOC_FRAME *packet){
    //На время передачи отключение systick
    SysTick->CTRL &= ~SysTick_CTRL_ENABLE_Msk;
 
-   OUT_WRITE(FAN1_PIN, LOW);
+   OUT_WRITE(FAN1_PIN, HIGH);
    OUT_WRITE(HEATER_0_PIN, LOW);
    OUT_WRITE(HEATER_BED_PIN, LOW);
 

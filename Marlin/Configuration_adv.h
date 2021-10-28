@@ -698,7 +698,9 @@
 
 #if NUM_Z_STEPPER_DRIVERS > 1
   // Enable if Z motor direction signals are the opposite of Z1
-  //#define INVERT_Z2_VS_Z_DIR
+  #if ENABLED(MOTHERBOARD_SV1_3)
+    #define INVERT_Z2_VS_Z_DIR
+  #endif
   //#define INVERT_Z3_VS_Z_DIR
   //#define INVERT_Z4_VS_Z_DIR
 
