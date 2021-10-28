@@ -6,18 +6,17 @@
 Основана на [Marlin 3D Printer Firmware](https://github.com/MarlinFirmware/Marlin)  версии 2.0.9.2
 
 ## Главное
-Обновлено 26.11.2021
-- исправлены все косяки вывода русскоязычных надписей
-- поддержка русских имен файлов
+Обновлено 28.10.2021
+- WiFi интерфейс для управления принтером и передачи файлов
+- активирован Linear Advance
+- активен датчик окончания филамента
 - включена калибровка стола ("Выровнять стол" с ручной подгонкой высоты сопла по 9 точкам)
 - включена подстройка винтами стола по 4 точкам, соответствующим положению регулировочных винтов ("Выровнять углы")
-- активен датчик окончания филамента
-- активирована альтернатива джеркам - Junction Deviation
-- Linear Advance временно не активирован
+- исправлены все косяки вывода русскоязычных надписей
+- поддержка русских имен файлов
 - по умолчанию стоит ограничение на ускорения осей - 3000 мм/сек\*сек, скорость - 250 мм/сек
 - интерфейс - стандартный графический с измененным главным экраном
 - выбор языка интерфейса - английский или русский
-- WiFi интерфейс для управления принтером и передачи файлов
 
 ## Новый главный экран интерфейса
 Главный экран был полностью переработан для обоих режимов - в простое и при печати.
@@ -92,18 +91,17 @@ Works with boards: **MKS Robin Nano v1.3** (removable drivers, STM32F407 control
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
 
 ## The main thing
-(updated 11.26.2021)
-- fixed all the jambs of the output of Russian-language inscriptions
-- support for Russian filenames
+(updated 10.28.2021)
+- activated Linear Advance
+- WiFi interface for printer control and file transfer
+- the filament end sensor is active
 - table calibration is enabled ("Align the table" with manual adjustment of the nozzle height by 9 points)
 - adjustment is enabled by the table screws at 4 points, corresponding to the position of the adjusting screws ("Align the corners")
-- the filament end sensor is active
-- activated alternative to jerks - Junction Deviation
-- Linear Advance is temporarily not activated
+- fixed all the jambs of the output of Russian-language inscriptions
+- support for Russian filenames
 - by default, there is a limit on the acceleration of the axes - 3000 mm/s\*s, speed - 250 mm/s
 - interface - standard graphical with a modified main screen
 - choice of interface language - English or Russian
-- WiFi interface for printer control and file transfer
 
 # New main interface screen
 The home screen has been completely redesigned for both idle and print modes.
