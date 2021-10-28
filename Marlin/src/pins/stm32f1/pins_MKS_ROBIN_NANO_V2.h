@@ -396,3 +396,19 @@
 #if ENABLED(SPEAKER) && BEEPER_PIN == PC5
   #error "MKS Robin nano default BEEPER_PIN is not a SPEAKER."
 #endif
+
+/*
+Модуль MKS WIFI
+*/
+#define MKS_WIFI
+
+#ifdef MKS_WIFI
+
+ #define MKS_WIFI_SERIAL_NUM                SERIAL_PORT_2
+ #define MKS_WIFI_BAUDRATE                  115200
+ #undef PLATFORM_M997_SUPPORT
+
+ #define MKS_WIFI_IO0                       PC13
+ #define MKS_WIFI_IO4                       PC7
+ #define MKS_WIFI_IO_RST                    PE9
+#endif

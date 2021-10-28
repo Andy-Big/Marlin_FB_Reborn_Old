@@ -277,6 +277,11 @@ void CardReader::printListing(
   OPTARG(LONG_FILENAME_HOST_SUPPORT, const char * const prependLong/*=nullptr*/)
 ) {
   dir_t p;
+
+  #if ENABLED(MKS_WIFI)
+  serial_index_t port = queue.ring_buffer.command_port();
+  #endif
+  
   while (parent.readDir(&p, longFilename) > 0) {
     if (DIR_IS_SUBDIR(&p)) {
 
@@ -321,23 +326,33 @@ void CardReader::printListing(
         SERIAL_ECHO(prepend);
         SERIAL_CHAR('/');
       }
-      SERIAL_ECHO(createFilename(filename, p));
-      SERIAL_CHAR(' ');
-      #if ENABLED(LONG_FILENAME_HOST_SUPPORT)
-        if (!includeLongNames)
-      #endif
-          SERIAL_ECHOLN(p.fileSize);
-      #if ENABLED(LONG_FILENAME_HOST_SUPPORT)
-        else {
-          SERIAL_ECHO(p.fileSize);
-          SERIAL_CHAR(' ');
-          if (prependLong) {
-            SERIAL_ECHO(prependLong);
-            SERIAL_CHAR('/');
+      #if ENABLED(MKS_WIFI)
+        if (port.index == MKS_WIFI_SERIAL_NUM){
+          printLongPath(createFilename(filename, p));
+        }else{
+        SERIAL_ECHO(createFilename(filename, p));
+        SERIAL_CHAR(' ');
+        SERIAL_ECHOLN(p.fileSize);
+      }
+      #else
+        SERIAL_ECHO(createFilename(filename, p));
+        SERIAL_CHAR(' ');
+        #if ENABLED(LONG_FILENAME_HOST_SUPPORT)
+          if (!includeLongNames)
+        #endif
+            SERIAL_ECHOLN(p.fileSize);
+        #if ENABLED(LONG_FILENAME_HOST_SUPPORT)
+          else {
+            SERIAL_ECHO(p.fileSize);
+            SERIAL_CHAR(' ');
+            if (prependLong) {
+              SERIAL_ECHO(prependLong);
+              SERIAL_CHAR('/');
+            }
+            SERIAL_ECHOLN(longFilename[0] ? longFilename : "???");
           }
-          SERIAL_ECHOLN(longFilename[0] ? longFilename : "???");
-        }
-      #endif
+        #endif
+      #endif  // ENABLED(MKS_WIFI)
     }
   }
 }
@@ -358,6 +373,11 @@ void CardReader::ls(TERN_(LONG_FILENAME_HOST_SUPPORT, bool includeLongNames/*=fa
   // Get a long pretty path based on a DOS 8.3 path
   //
   void CardReader::printLongPath(char * const path) {
+
+    #if ENABLED(MKS_WIFI)
+      serial_index_t port = queue.ring_buffer.command_port();
+      char f_name_buf[100];
+    #endif
 
     int i, pathLen = strlen(path);
 
@@ -383,10 +403,21 @@ void CardReader::ls(TERN_(LONG_FILENAME_HOST_SUPPORT, bool includeLongNames/*=fa
 
       // Find the item, setting the long filename
       diveDir.rewind();
-      selectByName(diveDir, segment);
+      #if ENABLED(MKS_WIFI)
+        strcpy(f_name_buf,segment);
+        selectByName(diveDir, f_name_buf);
+      #else
+        selectByName(diveDir, segment);
+      #endif
 
       // Print /LongNamePart to serial output
-      SERIAL_CHAR('/');
+      #if ENABLED(MKS_WIFI)
+        if(port.index != MKS_WIFI_SERIAL_NUM){
+        SERIAL_CHAR('/');
+        };
+      #else
+        SERIAL_CHAR('/');
+      #endif
       SERIAL_ECHO(longFilename[0] ? longFilename : "???");
 
       // If the filename was printed then that's it

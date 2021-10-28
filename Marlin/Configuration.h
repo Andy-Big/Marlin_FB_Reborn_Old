@@ -126,8 +126,13 @@
  * Currently Ethernet (-2) is only supported on Teensy 4.1 boards.
  * :[-2, -1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
-//#define SERIAL_PORT_2 1
-//#define BAUDRATE_2 250000   // Enable to override BAUDRATE
+
+#define MKS_WIFI
+#if ENABLED(MKS_WIFI)
+  #define SHOW_PROGRESS
+  #define SERIAL_PORT_2 1
+  #define BAUDRATE_2 115200   // Enable to override BAUDRATE
+#endif
 
 /**
  * Select a third serial port on the board to use for communication with the host.
@@ -141,8 +146,9 @@
 //#define BLUETOOTH
 
 // Choose the name from boards.h that matches your setup
+//#define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4
 #ifndef MOTHERBOARD
-  #define MOTHERBOARD BOARD_MKS_ROBIN_NANO_V1_3_F4
+  #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
 #endif
 
 // Name displayed in the LCD "Ready" message and Info menu

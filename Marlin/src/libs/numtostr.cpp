@@ -291,8 +291,41 @@ const char* ftostr32_52(const_float_t f) {
   return &conv[2];
 }
 
+// Convert signed float to fixed-length string with 1234.56 / _234.56 / __34.56 / ___4.56 format
+const char* ftostr32_62(const_float_t f) {
+  long i = INTFLOAT(f, 2);
+  conv[0] = (i < 100000) ? ' ' : DIGIMOD(i, 100000);
+  conv[1] = (i < 10000) ? ' ' : DIGIMOD(i, 10000);
+  conv[2] = (i < 1000) ? ' ' : DIGIMOD(i, 1000);
+  conv[3] = DIGIMOD(i, 100);
+  conv[4] = '.';
+  conv[5] = DIGIMOD(i, 10);
+  conv[6] = DIGIMOD(i, 1);
+  
+  if (conv[0] != ' ')
+    return &conv[0];
+  else if  (conv[1] != ' ')
+    return &conv[1];
+  else if  (conv[2] != ' ')
+    return &conv[2];
+  else
+    return &conv[3];
+}
+
 // Convert signed float to fixed-length string with 023.45 / -23.45 format
 const char* ftostr52(const_float_t f) {
+  long i = INTFLOAT(f, 2);
+  conv[1] = MINUSOR(i, DIGIMOD(i, 10000));
+  conv[2] = DIGIMOD(i, 1000);
+  conv[3] = DIGIMOD(i, 100);
+  conv[4] = '.';
+  conv[5] = DIGIMOD(i, 10);
+  conv[6] = DIGIMOD(i, 1);
+  return &conv[1];
+}
+
+// Convert signed float to fixed-length string with 0123.45 / -123.45 format
+const char* ftostr62(const_float_t f) {
   long i = INTFLOAT(f, 2);
   conv[1] = MINUSOR(i, DIGIMOD(i, 10000));
   conv[2] = DIGIMOD(i, 1000);

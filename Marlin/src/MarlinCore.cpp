@@ -1594,6 +1594,10 @@ void setup() {
     ui.check_touch_calibration();
   #endif
 
+  #if ENABLED(MKS_WIFI)
+    mks_wifi_init();
+  #endif
+
   marlin_state = MF_RUNNING;
 
   SETUP_LOG("setup() completed.");

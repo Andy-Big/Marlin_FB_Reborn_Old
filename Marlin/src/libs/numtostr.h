@@ -83,6 +83,9 @@ const char* ftostr42_52(const_float_t x);
 // Convert signed float to fixed-length string with -23.45 / -2.34 / 2.34 / 12.34 / 123.45 format
 const char* ftostr32_52(const_float_t f);
 
+// Convert signed float to fixed-length string with 1234.56 / _234.56 / __34.56 / ___4.56 format
+const char* ftostr32_62(const_float_t f);
+
 // Convert signed float to fixed-length string with 023.45 / -23.45 format
 const char* ftostr52(const_float_t x);
 
