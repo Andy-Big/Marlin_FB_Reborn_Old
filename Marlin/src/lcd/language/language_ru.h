@@ -34,7 +34,7 @@ namespace Language_ru {
   using namespace Language_en; // Inherit undefined strings from English
 
   constexpr uint8_t    CHARSIZE                            = 2;
-  PROGMEM Language_Str LANGUAGE                            = _UxGT("Russian");
+  PROGMEM Language_Str LANGUAGE                            = _UxGT("Русский");
 
   PROGMEM Language_Str WELCOME_MSG                         = MACHINE_NAME _UxGT(" Готов.");
   PROGMEM Language_Str MSG_YES                             = _UxGT("Да");
@@ -77,11 +77,11 @@ namespace Language_ru {
   PROGMEM Language_Str MSG_ITERATION                       = _UxGT("G34 Итерация: %i");
   PROGMEM Language_Str MSG_DECREASING_ACCURACY             = _UxGT("Уменьшение точности!");
   PROGMEM Language_Str MSG_ACCURACY_ACHIEVED               = _UxGT("Точность достигнута");
-  PROGMEM Language_Str MSG_LEVEL_BED_HOMING                = _UxGT("Стол домой");
+  PROGMEM Language_Str MSG_LEVEL_BED_HOMING                = _UxGT("Парковка стола");
   PROGMEM Language_Str MSG_LEVEL_BED_WAITING               = _UxGT("Нажмите чтобы начать");
   PROGMEM Language_Str MSG_LEVEL_BED_NEXT_POINT            = _UxGT("Следующая точка");
   PROGMEM Language_Str MSG_LEVEL_BED_DONE                  = _UxGT("Выравнивание готово!");
-  PROGMEM Language_Str MSG_Z_FADE_HEIGHT                   = _UxGT("Высота спада");
+  PROGMEM Language_Str MSG_Z_FADE_HEIGHT                   = _UxGT("Z затухания коррекции");
   #if LCD_WIDTH > 21
     PROGMEM Language_Str MSG_SET_HOME_OFFSETS              = _UxGT("Установ. смещения дома");
     PROGMEM Language_Str MSG_HOME_OFFSET_X                 = _UxGT("Смещение дома X");
@@ -108,23 +108,23 @@ namespace Language_ru {
     PROGMEM Language_Str MSG_LAST_VALUE_SP                 = _UxGT("Послед. знач. ");
   #endif
   #if PREHEAT_COUNT
-    PROGMEM Language_Str MSG_PREHEAT_1                     = _UxGT("Преднагрев ") PREHEAT_1_LABEL;
-    PROGMEM Language_Str MSG_PREHEAT_1_H                   = _UxGT("Нагрев ") PREHEAT_1_LABEL " ~";
-    PROGMEM Language_Str MSG_PREHEAT_1_END                 = _UxGT("Нагрев ") PREHEAT_1_LABEL _UxGT(" сопло");
-    PROGMEM Language_Str MSG_PREHEAT_1_END_E               = _UxGT("Нагрев ") PREHEAT_1_LABEL _UxGT(" сопло ~");
-    PROGMEM Language_Str MSG_PREHEAT_1_ALL                 = _UxGT("Нагрев ") PREHEAT_1_LABEL _UxGT(" всё");
-    PROGMEM Language_Str MSG_PREHEAT_1_BEDONLY             = _UxGT("Нагрев ") PREHEAT_1_LABEL _UxGT(" стол");
-    PROGMEM Language_Str MSG_PREHEAT_1_SETTINGS            = _UxGT("Нагрев ") PREHEAT_1_LABEL _UxGT(" правка");
+    PROGMEM Language_Str MSG_PREHEAT_1                     = _UxGT("Нагреть для  ") PREHEAT_1_LABEL;
+    PROGMEM Language_Str MSG_PREHEAT_1_H                   = _UxGT("Нагреть для  ") PREHEAT_1_LABEL " ~";
+    PROGMEM Language_Str MSG_PREHEAT_1_END                 = _UxGT("Нагреть для ") PREHEAT_1_LABEL _UxGT(" сопло");
+    PROGMEM Language_Str MSG_PREHEAT_1_END_E               = _UxGT("Нагреть для ") PREHEAT_1_LABEL _UxGT(" сопло ~");
+    PROGMEM Language_Str MSG_PREHEAT_1_ALL                 = _UxGT("Нагреть для ") PREHEAT_1_LABEL _UxGT(" всё");
+    PROGMEM Language_Str MSG_PREHEAT_1_BEDONLY             = _UxGT("Нагреть для ") PREHEAT_1_LABEL _UxGT(" стол");
+    PROGMEM Language_Str MSG_PREHEAT_1_SETTINGS            = _UxGT("Нагрев для ") PREHEAT_1_LABEL _UxGT(" изменить");
 
-    PROGMEM Language_Str MSG_PREHEAT_M                     = _UxGT("Преднагрев $");
-    PROGMEM Language_Str MSG_PREHEAT_M_H                   = _UxGT("Нагрев $ ~");
-    PROGMEM Language_Str MSG_PREHEAT_M_END                 = _UxGT("Нагрев $ сопло");
-    PROGMEM Language_Str MSG_PREHEAT_M_END_E               = _UxGT("Нагрев $ сопло ~");
-    PROGMEM Language_Str MSG_PREHEAT_M_ALL                 = _UxGT("Нагрев $ всё");
-    PROGMEM Language_Str MSG_PREHEAT_M_BEDONLY             = _UxGT("Нагрев $ стол");
-    PROGMEM Language_Str MSG_PREHEAT_M_SETTINGS            = _UxGT("Нагрев $ правка");
+    PROGMEM Language_Str MSG_PREHEAT_M                     = _UxGT("Нагреть для $");
+    PROGMEM Language_Str MSG_PREHEAT_M_H                   = _UxGT("Нагреть для $ ~");
+    PROGMEM Language_Str MSG_PREHEAT_M_END                 = _UxGT("Нагреть для $ сопло");
+    PROGMEM Language_Str MSG_PREHEAT_M_END_E               = _UxGT("Нагреть для $ сопло ~");
+    PROGMEM Language_Str MSG_PREHEAT_M_ALL                 = _UxGT("Нагреть для $ всё");
+    PROGMEM Language_Str MSG_PREHEAT_M_BEDONLY             = _UxGT("Нагреть для $ стол");
+    PROGMEM Language_Str MSG_PREHEAT_M_SETTINGS            = _UxGT("Нагрев для $ изменить");
   #endif
-  PROGMEM Language_Str MSG_PREHEAT_CUSTOM                  = _UxGT("Преднагрев");
+  PROGMEM Language_Str MSG_PREHEAT_CUSTOM                  = _UxGT("Разогреть");
   PROGMEM Language_Str MSG_COOLDOWN                        = _UxGT("Охлаждение");
   PROGMEM Language_Str MSG_CUTTER_FREQUENCY                = _UxGT("Частота");
   PROGMEM Language_Str MSG_LASER_MENU                      = _UxGT("Управление лазером");
@@ -372,11 +372,11 @@ namespace Language_ru {
     PROGMEM Language_Str MSG_FLOWMETER_SAFETY              = _UxGT("Безопас.потока");
   #endif
   PROGMEM Language_Str MSG_LASER                           = _UxGT("Лазер");
-  PROGMEM Language_Str MSG_FAN_SPEED                       = _UxGT("Вент.");
-  PROGMEM Language_Str MSG_FAN_SPEED_N                     = _UxGT("Вент. ~");
+  PROGMEM Language_Str MSG_FAN_SPEED                       = _UxGT("Обдув");
+  PROGMEM Language_Str MSG_FAN_SPEED_N                     = _UxGT("Обдув ~");
   PROGMEM Language_Str MSG_STORED_FAN_N                    = _UxGT("Сохранённый вент. ~");
-  PROGMEM Language_Str MSG_EXTRA_FAN_SPEED                 = _UxGT("Доп. вент.");
-  PROGMEM Language_Str MSG_EXTRA_FAN_SPEED_N               = _UxGT("Доп. вент. ~");
+  PROGMEM Language_Str MSG_EXTRA_FAN_SPEED                 = _UxGT("Доп. обдув");
+  PROGMEM Language_Str MSG_EXTRA_FAN_SPEED_N               = _UxGT("Доп. обдув ~");
   PROGMEM Language_Str MSG_CONTROLLER_FAN                  = _UxGT("Контроллер вент.");
   PROGMEM Language_Str MSG_CONTROLLER_FAN_IDLE_SPEED       = _UxGT("Холостые обороты");
   PROGMEM Language_Str MSG_CONTROLLER_FAN_AUTO_ON          = _UxGT("Автовключение");
@@ -388,7 +388,7 @@ namespace Language_ru {
   PROGMEM Language_Str MSG_MIN                             = " " LCD_STR_THERMOMETER ", " LCD_STR_DEGREE _UxGT("С  мин");
   PROGMEM Language_Str MSG_MAX                             = " " LCD_STR_THERMOMETER ", " LCD_STR_DEGREE _UxGT("С макс");
   PROGMEM Language_Str MSG_FACTOR                          = " " LCD_STR_THERMOMETER _UxGT(" Фактор");
-  PROGMEM Language_Str MSG_AUTOTEMP                        = _UxGT("Автотемп.");
+  PROGMEM Language_Str MSG_AUTOTEMP                        = _UxGT("Автотемп. под поток");
   PROGMEM Language_Str MSG_LCD_ON                          = _UxGT("Вкл");
   PROGMEM Language_Str MSG_LCD_OFF                         = _UxGT("Выкл");
 
