@@ -908,6 +908,12 @@ namespace Language_ru {
 
   PROGMEM Language_Str MSG_SD_CARD                         = _UxGT("SD Карта");
   PROGMEM Language_Str MSG_USB_DISK                        = _UxGT("USB Диск");
+
+  LSTR MSG_WIFI_CONNECTED                 = _UxGT("Подключен");
+  LSTR MSG_WIFI_MODE                      = _UxGT("Режим");
+  LSTR MSG_WIFI_NETWORK                   = _UxGT("Сеть:");
+  LSTR MSG_WIFI_ADDRESS                   = _UxGT("IP адрес");
+  
 }
 
 #if FAN_COUNT == 1

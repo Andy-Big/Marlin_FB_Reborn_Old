@@ -15,7 +15,9 @@ void debug_to_uart(char *fmt,...){
     vsnprintf (buffer+2, 199, fmt, ParamList);
     va_end(ParamList);
 
-    //SERIAL_ECHOLN((char *)&buffer);	
+#ifdef MARLIN_CONFIG_MY
+    SERIAL_ECHOLN((char *)&buffer);	
+#endif
 
     while(*ptr){
       while(MYSERIAL2.availableForWrite()==0){
@@ -26,4 +28,5 @@ void debug_to_uart(char *fmt,...){
    
 
 }
+
 #endif

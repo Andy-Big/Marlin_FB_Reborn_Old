@@ -42,6 +42,16 @@ typedef struct
 #define NOP	__asm volatile ("nop")
 
 
+typedef struct {
+	bool		connected;
+	uint8_t		ip[4];
+	uint8_t		mode;
+	char		net_name[32];
+} MKS_WIFI_INFO;
+
+extern MKS_WIFI_INFO mks_wifi_info;
+
+
 void mks_wifi_init(void);
 
 void mks_wifi_set_param(void);

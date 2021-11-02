@@ -748,6 +748,12 @@ namespace Language_en {
   LSTR MSG_SD_CARD                        = _UxGT("SD Card");
   LSTR MSG_USB_DISK                       = _UxGT("USB Disk");
 
+  LSTR MSG_WIFI_CONNECTED                 = _UxGT("Connected");
+  LSTR MSG_WIFI_MODE                      = _UxGT("Mode");
+  LSTR MSG_WIFI_NETWORK                   = _UxGT("Network");
+  LSTR MSG_WIFI_ADDRESS                   = _UxGT("IP Address");
+  
+
   // These strings can be the same in all languages
   LSTR MSG_MARLIN                         = _UxGT("MarlinRB");
   LSTR MSG_SHORT_DAY                      = _UxGT("d"); // One character only
@@ -769,6 +775,7 @@ namespace Language_en {
   LSTR MSG_BACKLASH_I                     = LCD_STR_I;
   LSTR MSG_BACKLASH_J                     = LCD_STR_J;
   LSTR MSG_BACKLASH_K                     = LCD_STR_K;
+  LSTR MSG_INFO_WIFI_MENU                 = _UxGT("WiFi");
 }
 
 #if FAN_COUNT == 1

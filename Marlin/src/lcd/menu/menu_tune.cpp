@@ -162,6 +162,7 @@ void menu_tune() {
     EDIT_ITEM(float43, MSG_BED_Z, &mbl.z_offset, -1, 1);
   #endif
 
+ /*
   //
   // Nozzle:
   // Nozzle [1-4]:
@@ -232,7 +233,7 @@ void menu_tune() {
     #endif
 
   #endif // HAS_FAN
-
+*/
   END_MENU();
 }
 

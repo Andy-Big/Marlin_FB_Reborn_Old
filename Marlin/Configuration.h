@@ -151,6 +151,9 @@
   #define MOTHERBOARD BOARD_MKS_ROBIN_NANO
 #endif
 
+#ifndef STEPPERS_MICROSTEP
+  #define STEPPERS_MICROSTEP 32
+#endif
 // Name displayed in the LCD "Ready" message and Info menu
 #define CUSTOM_MACHINE_NAME "FlyingBear Reborn"
 
@@ -496,7 +499,11 @@
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  *
  */
-#define TEMP_SENSOR_0 1
+#ifdef MARLIN_CONFIG_MY
+  #define TEMP_SENSOR_0 5
+#else
+  #define TEMP_SENSOR_0 1
+#endif
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -944,10 +951,10 @@
  * Override with M92
  *                                      X, Y, Z [, I [, J [, K]]], E0 [, E1[, E2...]]
  */
-#if ENABLED(MOTHERBOARD_SV1_3)
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 408 }
-#else
+#if STEPPERS_MICROSTEP == 32
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 821 }
+#else
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 408 }
 #endif
 
 /**
@@ -1928,7 +1935,7 @@
 
 #if ENABLED(NOZZLE_PARK_FEATURE)
   // Specify a park position as { X, Y, Z_raise }
-  #define NOZZLE_PARK_POINT { (X_MIN_POS + 0), (Y_MAX_POS - 0), 20 }
+  #define NOZZLE_PARK_POINT { (X_MAX_POS - 20), (Y_MAX_POS - 20), 10 }
   //#define NOZZLE_PARK_X_ONLY          // X move only is required to park
   //#define NOZZLE_PARK_Y_ONLY          // Y move only is required to park
   #define NOZZLE_PARK_Z_RAISE_MIN   2   // (mm) Always raise Z by at least this distance

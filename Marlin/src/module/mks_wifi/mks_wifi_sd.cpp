@@ -124,7 +124,7 @@ void mks_wifi_start_file_upload(ESP_PROTOC_FRAME *packet){
    save_e0=thermalManager.degTargetHotend(0);
    
    DEBUG("Saved target temp E0 %d Bed %d",save_e0,save_bed);
-   
+
    thermalManager.setTargetBed(0);
    thermalManager.setTargetHotend(0,0);
    thermalManager.manage_heater();
@@ -256,7 +256,7 @@ void mks_wifi_start_file_upload(ESP_PROTOC_FRAME *packet){
             data_packet = (uint8_t *)buff;
          }else{
             DEBUG("Change");
-            if(dma_buff_index){
+           if(dma_buff_index){
                data_packet = (uint8_t *)dma_buff[1];
             }else{
                data_packet = (uint8_t *)dma_buff[0];
@@ -334,7 +334,7 @@ void mks_wifi_start_file_upload(ESP_PROTOC_FRAME *packet){
                res=f_write((FIL *)&upload_file,(uint8_t*)file_buff,file_data_size,&bytes_writen);
                if(res){
                   ERROR("Write err %d",res);
-                  break;
+                 break;
                }
                file_size_writen+=bytes_writen;
             }

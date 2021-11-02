@@ -7,6 +7,8 @@
 #ifdef DEBUG_TO_UART
 
 void debug_to_uart(char *fmt,...);
+inline void debug_to_uart_flush() { MYSERIAL2.flush(); }
+
 
 #endif
 

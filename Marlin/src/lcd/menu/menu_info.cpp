@@ -32,6 +32,8 @@
 
 #include "../tft/tft_string.h"
 
+#include "..\..\module\mks_wifi\mks_wifi.h"
+
 
 #if HAS_GAMES
   #include "game/game.h"
@@ -260,6 +262,8 @@ void menu_info_board() {
     STATIC_ITEM_P(PSTR(MACHINE_NAME), SS_DEFAULT|SS_INVERT);    // My3DPrinter
     STATIC_ITEM_P(PSTR(WEBSITE_URL));                           // www.my3dprinter.com
     PSTRING_ITEM(MSG_INFO_EXTRUDERS, STRINGIFY(EXTRUDERS), SS_CENTER); // Extruders: 2
+    #ifdef MKS_WIFI                                             // WiFi info
+    #endif
     #if HAS_LEVELING
       STATIC_ITEM(
         TERN_(AUTO_BED_LEVELING_3POINT, MSG_3POINT_LEVELING)      // 3-Point Leveling
@@ -271,6 +275,33 @@ void menu_info_board() {
     #endif
     END_SCREEN();
   }
+
+#ifdef MKS_WIFI                                             // WiFi info
+  void menu_info_wifi() {
+      if (ui.use_click()) return ui.go_back();
+      START_SCREEN();
+      if (mks_wifi_info.connected)
+      {
+        PSTRING_ITEM(MSG_WIFI_CONNECTED, GET_TEXT(MSG_YES), SS_CENTER);
+      
+        if (mks_wifi_info.mode == 0x01)
+          PSTRING_ITEM(MSG_WIFI_MODE, "AP", SS_CENTER);
+        else
+          PSTRING_ITEM(MSG_WIFI_MODE, "Client", SS_CENTER);
+        
+        char ip_addr[16];
+         sprintf(ip_addr,"%d.%d.%d.%d", mks_wifi_info.ip[0], mks_wifi_info.ip[1], mks_wifi_info.ip[2], mks_wifi_info.ip[3]);
+        PSTRING_ITEM(MSG_WIFI_ADDRESS, ip_addr, SS_CENTER);
+        PSTRING_ITEM(MSG_WIFI_NETWORK, mks_wifi_info.net_name, SS_CENTER);
+      }
+      else
+      {
+        PSTRING_ITEM(MSG_WIFI_CONNECTED, GET_TEXT(MSG_NO), SS_CENTER);
+      }
+
+      END_SCREEN();
+    }
+#endif
 
 #endif
 
@@ -290,6 +321,9 @@ void menu_info() {
     #endif
   #endif
 
+  #ifdef MKS_WIFI                                             // WiFi info
+    SUBMENU(MSG_INFO_WIFI_MENU, menu_info_wifi);           // Printer Info >
+  #endif
   #if ENABLED(PRINTCOUNTER)
     SUBMENU(MSG_INFO_STATS_MENU, menu_info_stats);               // Printer Stats >
   #endif

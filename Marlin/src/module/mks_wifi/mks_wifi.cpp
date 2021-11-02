@@ -11,11 +11,14 @@ uint8_t mks_out_buffer[MKS_OUT_BUFF_SIZE];
 
 volatile uint8_t esp_packet[MKS_TOTAL_PACKET_SIZE];
 
+MKS_WIFI_INFO mks_wifi_info;
 
 void mks_wifi_init(void){
 
 	SERIAL_ECHO_MSG("Init MKS WIFI");	
     DEBUG("Init MKS WIFI");
+
+	memset(&mks_wifi_info, 0, sizeof(mks_wifi_info));
 	
 	SET_OUTPUT(MKS_WIFI_IO0);
 	WRITE(MKS_WIFI_IO0, HIGH);
@@ -294,6 +297,13 @@ void mks_wifi_parse_packet(ESP_PROTOC_FRAME *packet){
 			}else{
 				DEBUG("[Net] wifi not config");
 			}
+			mks_wifi_info.connected = (packet->data[6] == 0x0A);
+			memcpy(&(mks_wifi_info.ip), &(packet->data[0]), 4);
+			mks_wifi_info.mode = packet->data[7];
+			if (packet->data[8] < 32)
+				strncpy(mks_wifi_info.net_name, (char*)&(packet->data[9]), packet->data[8]);
+			else
+				strncpy(mks_wifi_info.net_name, (char*)&(packet->data[9]), 31);
 			break;
 		case ESP_TYPE_GCODE:
 				char gcode_cmd[50];

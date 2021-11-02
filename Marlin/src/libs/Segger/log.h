@@ -1,7 +1,9 @@
 #ifndef LOG_H
 #define LOG_H
 
-//#define DEBUG_TO_UART
+#ifdef MARLIN_CONFIG_MY
+    #define DEBUG_TO_UART
+#endif
 //#define DEBUG_TO_SEGGER_RTT
 
 #ifdef DEBUG_TO_UART
@@ -34,8 +36,10 @@
 #ifdef DEBUG_TO_UART
     #ifdef DEBUG_MSG
         #define DEBUG(fmt, args...) debug_to_uart((char*)"[D] %-20s:%-4d :" fmt "\n", __func__, __LINE__, ## args)
+        #define DEBUG_FLUSH() debug_to_uart_flush()
     #else
         #define DEBUG(fmt, args...)
+        #define DEBUG_FLUSH()
     #endif
     #ifdef INFO_MSG
         #define INFO(fmt, args...)  debug_to_uart((char*)"[I] %-20s:%-4d :" fmt "\n", __func__, __LINE__, ## args)

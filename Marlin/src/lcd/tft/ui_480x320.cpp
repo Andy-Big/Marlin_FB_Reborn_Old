@@ -320,17 +320,10 @@ void MarlinUI::draw_status_screen() {
     tft_string.set("?");
   else {
     const float z = LOGICAL_Z_POSITION(current_position.z);
-    // tft_string.set(ftostr52sp((int16_t)z));
-    // tft_string.rtrim();
-    // offset += tft_string.width();
-    // tft_string.set(ftostr52sp(z));
-    // offset -= tft_string.width();
-  
     tft_string.set(ftostr42_52(z));
     tft_string.rtrim();
   }
   tft.add_text(110 - tft_string.width(), y, COLOR_TOP_FRAME_TEXT, tft_string);
-//  TERN_(TOUCH_SCREEN, touch.add_control(MOVE_AXIS, 0, y, 120, 32));
 
   // Moving speed
   tft_string.set(ftostr5rj(SQRT(planner.get_current_block()->nominal_speed_sqr)));
@@ -350,10 +343,13 @@ void MarlinUI::draw_status_screen() {
   tft_string.set(buffer);
   if (printJobOngoing() || printingIsPaused())
   {
-    // tft_string.add(" / ");
-    // heating.toDigital(buffer);
-    // tft_string.add(buffer);
+
+    // heating time for debug purpose
     tft_string.add(" / ");
+    heating.toDigital(buffer);
+    tft_string.add(buffer);
+    tft_string.add(" / ");
+
     // remain time
     if (elapsed.value > heating.value && (elapsed.value - heating.value) > 60)   // remain time only after 1 minute of printing (except heating time)
     {
@@ -429,26 +425,11 @@ void MarlinUI::draw_status_screen() {
     tft.add_text(240 - x / 2, 48, COLOR_PROGRESS_TEXT, tft_string);
   }
 
-/*
-  y += TERN(HAS_UI_480x272, 38, 48);
-  // feed rate
-  tft.canvas(96, y, 100, 32);
-  tft.set_background(COLOR_BACKGROUND);
-  uint16_t color = feedrate_percentage == 100 ? COLOR_RATE_100 : COLOR_RATE_ALTERED;
-  tft.add_image(0, 0, imgFeedRate, color);
-  tft_string.set(i16tostr3rj(feedrate_percentage));
-  tft_string.add('%');
-  tft.add_text(36, 1, color , tft_string);
-  TERN_(TOUCH_SCREEN, touch.add_control(FEEDRATE, 96, 176, 100, 32));
-*/
-
   #if ENABLED(TOUCH_SCREEN)
   y = 212;
   // if not in printing job
   if (!printJobOngoing() && !printingIsPaused())
   {
-  // static bool       prev_is_printing = 0;
-  // bool              is_printing = (printJobOngoing() || printingIsPaused());
     if (prev_is_printing)
     {
       prev_is_printing = 0;
@@ -468,7 +449,6 @@ void MarlinUI::draw_status_screen() {
 
     // Move
     add_control(x, y, MOVE_AXIS, imgMove, 1, COLOR_CONTROL_ENABLED);
-  //  TERN_(TOUCH_SCREEN, touch.add_control(MOVE_AXIS, 4, y, TFT_WIDTH - 8, FONT_LINE_HEIGHT));
   }
   else
   {
@@ -491,25 +471,16 @@ void MarlinUI::draw_status_screen() {
     x += dx + 100;
     if (printingIsPaused())
     {
-      // tft.canvas(x, y, Images[imgResume].width, Images[imgResume].height);
-      // tft.add_image(x, y, imgResume, RGB(255, 255, 132));
-      // touch.add_control(PRINT_RESUME, x, y, 64, 64);
       add_control(x, y, PRINT_RESUME, imgResume, 1, COLOR_CONTROL_ENABLED);
     }
     // pause
     else
     {
-      // tft.canvas(x, y, Images[imgPause].width, Images[imgPause].height);
-      // tft.add_image(x, y, imgPause, RGB(255, 255, 132));
-      // touch.add_control(PRINT_PAUSE, x, y, 64, 64);
       add_control(x, y, PRINT_PAUSE, imgPause, 1, COLOR_CONTROL_ENABLED);
     }
 
     // stop
     x += dx + 100;
-    // tft.canvas(x, y, Images[imgCancel].width, Images[imgCancel].height);
-    // tft.add_image(x, y, imgCancel, RGB(255, 0, 0));
-    // touch.add_control(PRINT_STOP, x, y, 64, 64);
       add_control(x, y, PRINT_STOP, imgCancel, 1, COLOR_CONTROL_CANCEL);
   }
   #endif

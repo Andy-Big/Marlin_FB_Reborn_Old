@@ -1,14 +1,15 @@
 [English](#english-version)
 # Прошивка MarlinRB для принтера Flyingbear Reborn
-Работает с платами: **MKS Robin Nano v1.3** (съемные драйвера, контроллер STM32F407), **MKS Robin Nano S v1.3** (несъемные драйвера, контроллер STM32F407) и **MKS Robin Nano v1.2** (съемные драйвера, контроллер STM32F103). 
+Работает с платами: **MKS Robin Nano v1.3** (съемные драйвера, контроллер STM32F407), **MKS Robin Nano S v1.3** (несъемные драйвера, контроллер STM32F407) и **MKS Robin Nano v1.2** (съемные драйвера, контроллер STM32F103). Для всех трех плат прошивка построена в двух вариантах - для драйверов с микрошагом 16 и для драйверов с микрошагом 32.
 ![Interface](IMG/IMG_20211026_223227.jpg)
 
 Основана на [Marlin 3D Printer Firmware](https://github.com/MarlinFirmware/Marlin)  версии 2.0.9.2
 
 ## Главное
-Обновлено 28.10.2021
+Обновлено 02.11.2021
 - WiFi интерфейс для управления принтером и передачи файлов
 - активирован Linear Advance
+- активированы встроенные в прошивку реьракты (работают по командам G10, G11)
 - активен датчик окончания филамента
 - включена калибровка стола ("Выровнять стол" с ручной подгонкой высоты сопла по 9 точкам)
 - включена подстройка винтами стола по 4 точкам, соответствующим положению регулировочных винтов ("Выровнять углы")
@@ -54,6 +55,14 @@
 К сожалению, настройка WiFi (имя точки доступа и пароль) пока нинака не реализована. Чтобы настроить работу WiFi, нужно сделать это в родной прошивке (от MKS), после чего можно обновляться на эту прошивку. Параметры настройки сохранятся.
 
 ## История
+### 02.11.2021
+**v1.3**
+- включены откаты в прошивке, числа в настройках этих откатов приведены в удобные для использование пределы
+- добавлена парковка сопла на паузе в дальнем правом углу
+- добавлена информация о состоянии WiFi в меню информации
+- построение всех конфигураций разбито на два варианта: для драйверов с микрошагом 16 и для драйверов с микрошагом 32
+- Меню Подстройка почищено от лишних пунктов, доступных с главного экрана (температура, охлаждение)
+
 ### 28.10.2021
 **v1.2**
 - **добавлена поддержка WiFi (на основе исходников Сергея - https://github.com/Sergey1560)**
@@ -85,17 +94,17 @@
 
 ## English version
 ## MarlinRB firmware for Flyingbear Reborn printer
-Works with boards: **MKS Robin Nano v1.3** (removable drivers, STM32F407 controller), **MKS Robin Nano S v1.3** (non-removable drivers, STM32F407 controller) and **MKS Robin Nano v1.2** (removable drivers, STM32F103 controller ).
+Works with boards: **MKS Robin Nano v1.3** (removable drivers, STM32F407 controller), **MKS Robin Nano S v1.3** (non-removable drivers, STM32F407 controller) and **MKS Robin Nano v1.2** (removable drivers, STM32F103 controller ). For all three boards, the firmware is built in two versions - for drivers with microstep 16 and for drivers with microstepping 32.
 ![Interface](IMG/IMG_20211026_223227.jpg)
 
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
 
 ## The main thing
-(updated 10.28.2021)
+(updated 11.02.2021)
 - activated Linear Advance
 - WiFi interface for printer control and file transfer
 - the filament end sensor is active
-- table calibration is enabled ("Align the table" with manual adjustment of the nozzle height by 9 points)
+- retracts built into the firmware are activated (working by commands G10, G11)- table calibration is enabled ("Align the table" with manual adjustment of the nozzle height by 9 points)
 - adjustment is enabled by the table screws at 4 points, corresponding to the position of the adjusting screws ("Align the corners")
 - fixed all the jambs of the output of Russian-language inscriptions
 - support for Russian filenames
@@ -139,6 +148,14 @@ Attention! Make sure your printer has a compatible control board!
 Unfortunately, the WiFi setting (hotspot name and password) has not been implemented yet. To set up WiFi, you need to do it in the native firmware (from MKS), after which you can update to this firmware. The settings will be saved.
 
 ## History
+### 11.02.2021
+**v1.3**
+- rollbacks are enabled in the firmware, the numbers in the settings of these rollbacks are given in convenient for use limits
+- added parking nozzle on pause in the far right corner
+- added WiFi status info to info menu
+- the building of all configurations is divided into two variants: for drivers with microstep 16 and for drivers with microstepping 32
+- The Tune menu has been cleared of unnecessary items that are accessible from the main screen (temperature, cooling)
+
 ### 10.28.2021
 **v1.2**
 - **added WiFi support (based on Sergey's sources - https://github.com/Sergey1560)**
