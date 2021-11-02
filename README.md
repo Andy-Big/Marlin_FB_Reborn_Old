@@ -57,8 +57,8 @@
 ## История
 ### 02.11.2021
 **v1.3**
-- включены откаты в прошивке, числа в настройках этих откатов приведены в удобные для использование пределы
-- добавлена парковка сопла на паузе в дальнем правом углу
+- **включены откаты в прошивке, числа в настройках этих откатов приведены в удобные для использование пределы**
+- **добавлена парковка сопла на паузе в дальнем правом углу**
 - добавлена информация о состоянии WiFi в меню информации
 - построение всех конфигураций разбито на два варианта: для драйверов с микрошагом 16 и для драйверов с микрошагом 32
 - Меню Подстройка почищено от лишних пунктов, доступных с главного экрана (температура, охлаждение)
@@ -150,8 +150,8 @@ Unfortunately, the WiFi setting (hotspot name and password) has not been impleme
 ## History
 ### 11.02.2021
 **v1.3**
-- rollbacks are enabled in the firmware, the numbers in the settings of these rollbacks are given in convenient for use limits
-- added parking nozzle on pause in the far right corner
+- **retracts are enabled in the firmware, the numbers in the settings of these retracts are given in convenient for use limits**
+- **added parking nozzle on pause in the far right corner**
 - added WiFi status info to info menu
 - the building of all configurations is divided into two variants: for drivers with microstep 16 and for drivers with microstepping 32
 - The Tune menu has been cleared of unnecessary items that are accessible from the main screen (temperature, cooling)
