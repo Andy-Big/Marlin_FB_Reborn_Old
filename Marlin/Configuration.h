@@ -38,7 +38,7 @@
  * Advanced settings can be found in Configuration_adv.h
  */
 #define CONFIGURATION_H_VERSION 02000902
-#define REBORN_FW_VERSION 0102
+#define REBORN_FW_VERSION 0104
 
 //===========================================================================
 //============================= Getting Started =============================
@@ -654,7 +654,7 @@
  * When set to any value below 255, enables a form of PWM to the bed that acts like a divider
  * so don't use it unless you are OK with PWM on your bed. (See the comment on enabling PIDTEMPBED)
  */
-#define MAX_BED_POWER 255 // limits duty cycle to bed; 255=full current
+#define MAX_BED_POWER 235 // limits duty cycle to bed; 255=full current
 
 #if ENABLED(PIDTEMPBED)
   //#define MIN_BED_POWER 0
@@ -1366,7 +1366,14 @@
 
 // For direct drive extruder v9 set to true, for geared extruder set to false.
 #if ENABLED(MOTHERBOARD_SV1_3)
-  #define INVERT_E0_DIR false
+  
+//  #define SWAP_Z_E_PINS
+
+  #ifdef SWAP_Z_E_PINS
+    #define INVERT_E0_DIR true
+  #else
+    #define INVERT_E0_DIR false
+  #endif
 #else
   #define INVERT_E0_DIR true
 #endif
@@ -2883,6 +2890,12 @@
   #if ENABLED(TFT_COLOR_UI)
     #define SINGLE_TOUCH_NAVIGATION
     #define RS_STYLE_COLOR_UI       // New style of Main screen (RebornStyle)
+  #endif
+#endif
+
+#ifdef MCU_STM32F407VE
+  #if ENABLED(RS_STYLE_COLOR_UI)
+    #define THUMBNAILS_PREVIEW
   #endif
 #endif
 

@@ -11,7 +11,7 @@ uint8_t mks_out_buffer[MKS_OUT_BUFF_SIZE];
 
 volatile uint8_t esp_packet[MKS_TOTAL_PACKET_SIZE];
 
-MKS_WIFI_INFO mks_wifi_info;
+MKS_WIFI_INFO mks_wifi_info;// __attribute__ ((section (".ccmram")));
 
 void mks_wifi_init(void){
 
@@ -291,7 +291,7 @@ void mks_wifi_parse_packet(ESP_PROTOC_FRAME *packet){
 						DEBUG("Network NAME too long");
 					}
 				}
-				DEBUG("[Net] connected, IP: %d.%d.%d.%d",packet->data[0],packet->data[1],packet->data[2],packet->data[3]);
+//				DEBUG("[Net] connected, IP: %d.%d.%d.%d",packet->data[0],packet->data[1],packet->data[2],packet->data[3]);
 			}else if(packet->data[6] == ESP_NET_WIFI_EXCEPTION){
 				DEBUG("[Net] wifi exeption");
 			}else{

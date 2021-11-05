@@ -212,6 +212,7 @@ bool CardReader::is_dir_or_gcode(const dir_t &p) {
   return (
     flag.filenameIsDir                                  // All Directories are ok
     || (p.name[8] == 'G' && p.name[9] != '~')           // Non-backup *.G* files are accepted
+    || (p.name[8] == 'C' && p.name[9] == 'F' && p.name[10] == 'G')           // *.CFG* files are accepted
   );
 }
 
@@ -657,6 +658,7 @@ void announceOpen(const uint8_t doing, const char * const path) {
 //   - 1 : (file open) Opening a new sub-procedure.
 //   - 1 : (no file open) Opening a macro (M98).
 //   - 2 : Resuming from a sub-procedure
+//   - 9 : Just open file
 //
 void CardReader::openFileRead(const char * const path, const uint8_t subcall_type/*=0*/) {
   if (!isMounted()) return;
@@ -713,8 +715,11 @@ void CardReader::openFileRead(const char * const path, const uint8_t subcall_typ
       SERIAL_ECHOLNPGM(STR_SD_FILE_SELECTED);
     }
 
-    selectFileByName(fname);
-    ui.set_status(longFilename[0] ? longFilename : fname);
+    if (subcall_type < 9)
+    {
+      selectFileByName(fname);
+      ui.set_status(longFilename[0] ? longFilename : fname);
+    }
   }
   else
     openFailed(fname);

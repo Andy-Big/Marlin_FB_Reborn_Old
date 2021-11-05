@@ -36,6 +36,7 @@
 #include "../../module/planner.h"
 #include "../../module/motion.h"
 #include "../language/language_en.h"
+#include "../../lcd/thumbnails.h"
 
 #if DISABLED(LCD_PROGRESS_BAR) && BOTH(FILAMENT_LCD_DISPLAY, SDSUPPORT)
   #include "../../feature/filwidth.h"
@@ -344,13 +345,15 @@ void MarlinUI::draw_status_screen() {
   if (printJobOngoing() || printingIsPaused())
   {
 
-    // heating time for debug purpose
-    tft_string.add(" / ");
-    heating.toDigital(buffer);
-    tft_string.add(buffer);
-    tft_string.add(" / ");
+    #ifdef MARLIN_CONFIG_MY
+      // heating time for debug purpose
+      tft_string.add(" / ");
+      heating.toDigital(buffer);
+      tft_string.add(buffer);
+    #endif
 
     // remain time
+    tft_string.add(" / ");
     if (elapsed.value > heating.value && (elapsed.value - heating.value) > 60)   // remain time only after 1 minute of printing (except heating time)
     {
       uint32_t  fsize = card.getFileSize();
@@ -746,6 +749,84 @@ void TFT::draw_edit_screen_buttons() {
     add_control(208, TFT_HEIGHT - 64, CLICK, imgConfirm);
   #endif
 }
+
+#if ENABLED(RS_STYLE_COLOR_UI)
+  void MenuItem_fileconfirm::draw_select_screen(const char * const string/*=nullptr*/) {
+
+    if (string == NULL)
+      DEBUG("MenuItem_fileconfirm - Draw: NULL");
+    else
+      DEBUG("MenuItem_fileconfirm - Draw: %s", string);
+
+    #if ENABLED(THUMBNAILS_PREVIEW)
+      char  str[256];
+
+      tft.canvas(0, 2, TFT_WIDTH, 30);
+      tft.set_background(COLOR_BACKGROUND);
+
+      strcpy(str, GET_TEXT(MSG_START_PRINT));
+      strcat(str, " ?");
+      tft_string.set(str);
+      tft_string.trim();
+      tft.add_text(tft_string.center(TFT_WIDTH), 0, COLOR_MENU_TEXT, tft_string);
+
+      if (string)
+      {
+        tft.canvas(0, 32, TFT_WIDTH, 30);
+        tft.set_background(COLOR_BACKGROUND);
+        tft_string.set(string);
+        tft_string.trim();
+        tft.add_text(tft_string.center(TFT_WIDTH), 0, COLOR_MENU_TEXT, tft_string);
+      }
+
+      bool is_thumb = thumbnails.Open(card.filename);
+      // card.openFileRead(card.filename);
+      // card.closefile();
+
+      if (is_thumb)
+      {
+        thumbnails.DrawThumbnail(5, 65, 200, 180);
+        thumbnails.Close();
+      }
+      else
+      {
+        thumbnails.DrawDefaultThumbnail(5, 65, 200, 180);
+      }
+    #else  // ENABLED(THUMBNAILS_PREVIEW)
+      uint16_t line = 1;
+      char  str[256];
+
+      menu_line(line++);
+      strcpy(str, GET_TEXT(MSG_START_PRINT));
+      strcat(str, " ?");
+      tft_string.set(str);
+      tft_string.trim();
+      tft.add_text(tft_string.center(TFT_WIDTH), 0, COLOR_MENU_TEXT, tft_string);
+
+      line++;
+      if (string) {
+        menu_line(line++);
+        tft_string.set(string);
+        tft_string.trim();
+        tft.add_text(tft_string.center(TFT_WIDTH), 0, COLOR_MENU_TEXT, tft_string);
+      }
+      else {
+        line++;
+      }
+    #endif  // ENABLED(THUMBNAILS_PREVIEW)
+
+    // if (suff) {
+    //   menu_line(line);
+    //   tft_string.set(suff);
+    //   tft_string.trim();
+    //   tft.add_text(tft_string.center(TFT_WIDTH), 0, COLOR_MENU_TEXT, tft_string);
+    // }
+    #if ENABLED(TOUCH_SCREEN)
+      add_control(88, TFT_HEIGHT - 64, CANCEL, imgCancel, true, HALF(COLOR_CONTROL_CANCEL));
+      add_control(328, TFT_HEIGHT - 64, CONFIRM, imgConfirm, true, COLOR_CONTROL_CONFIRM);
+    #endif
+  }
+#endif // ENABLED(RS_STYLE_COLOR_UI)
 
 // The Select Screen presents a prompt and two "buttons"
 void MenuItem_confirm::draw_select_screen(PGM_P const yes, PGM_P const no, const bool yesno, PGM_P const pref, const char * const string/*=nullptr*/, PGM_P const suff/*=nullptr*/) {

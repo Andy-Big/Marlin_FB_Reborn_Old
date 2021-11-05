@@ -386,4 +386,17 @@ void MenuItem_confirm::select_screen(
   }
 }
 
+#if ENABLED(RS_STYLE_COLOR_UI)
+  void MenuItem_fileconfirm::select_screen(selectFunc_t yesFunc, selectFunc_t noFunc, const char * const string/*=nullptr*/) {
+    ui.defer_status_screen();
+    const bool ui_selection = ui.update_selection(), got_click = ui.use_click();
+    if (got_click || ui.should_draw()) {
+      draw_select_screen(string);
+      if (got_click) {
+        selectFunc_t callFunc = ui_selection ? yesFunc : noFunc;
+        if (callFunc) callFunc(); else ui.goto_previous_screen();
+      }
+    }
+  }
+#endif // ENABLED(RS_STYLE_COLOR_UI)
 #endif // HAS_LCD_MENU

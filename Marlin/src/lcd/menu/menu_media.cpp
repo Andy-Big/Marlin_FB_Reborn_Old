@@ -73,17 +73,28 @@ class MenuItem_sdfile : public MenuItem_sdbase {
         sd_items = screen_items;
       #endif
       #if ENABLED(SD_MENU_CONFIRM_START)
-        MenuItem_submenu::action(pstr, []{
-          char * const longest = card.longest_filename();
-          char buffer[strlen(longest) + 2];
-          buffer[0] = ' ';
-          strcpy(buffer + 1, longest);
-          MenuItem_confirm::select_screen(
-            GET_TEXT(MSG_BUTTON_PRINT), GET_TEXT(MSG_BUTTON_CANCEL),
-            sdcard_start_selected_file, ui.goto_previous_screen,
-            GET_TEXT(MSG_START_PRINT), buffer, PSTR("?")
-          );
-        });
+        #if ENABLED(RS_STYLE_COLOR_UI)
+          MenuItem_submenu::action(pstr, []{
+            char * const longest = card.longest_filename();
+            char buffer[strlen(longest) + 2];
+            buffer[0] = ' ';
+            strcpy(buffer + 1, longest);
+            MenuItem_fileconfirm::select_screen(sdcard_start_selected_file, ui.goto_previous_screen, buffer);
+          });
+        #else   // ENABLED(RS_STYLE_COLOR_UI)
+
+          MenuItem_submenu::action(pstr, []{
+            char * const longest = card.longest_filename();
+            char buffer[strlen(longest) + 2];
+            buffer[0] = ' ';
+            strcpy(buffer + 1, longest);
+            MenuItem_confirm::select_screen(
+              GET_TEXT(MSG_BUTTON_PRINT), GET_TEXT(MSG_BUTTON_CANCEL),
+              sdcard_start_selected_file, ui.goto_previous_screen,
+              GET_TEXT(MSG_START_PRINT), buffer, PSTR("?")
+            );
+          });
+        #endif  // ENABLED(RS_STYLE_COLOR_UI)
       #else
         sdcard_start_selected_file();
         UNUSED(pstr);
