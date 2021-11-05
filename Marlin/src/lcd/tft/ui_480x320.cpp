@@ -785,12 +785,12 @@ void TFT::draw_edit_screen_buttons() {
 
       if (is_thumb)
       {
-        thumbnails.DrawThumbnail(5, 65, 200, 180);
+        thumbnails.DrawThumbnail(5, 75, 230, 220);
         thumbnails.Close();
       }
       else
       {
-        thumbnails.DrawDefaultThumbnail(5, 65, 200, 180);
+        thumbnails.DrawDefaultThumbnail(5, 75, 230, 220);
       }
     #else  // ENABLED(THUMBNAILS_PREVIEW)
       uint16_t line = 1;
@@ -822,8 +822,8 @@ void TFT::draw_edit_screen_buttons() {
     //   tft.add_text(tft_string.center(TFT_WIDTH), 0, COLOR_MENU_TEXT, tft_string);
     // }
     #if ENABLED(TOUCH_SCREEN)
-      add_control(88, TFT_HEIGHT - 64, CANCEL, imgCancel, true, HALF(COLOR_CONTROL_CANCEL));
-      add_control(328, TFT_HEIGHT - 64, CONFIRM, imgConfirm, true, COLOR_CONTROL_CONFIRM);
+      add_control(406, TFT_HEIGHT - 64, CANCEL, imgCancel, true, HALF(COLOR_CONTROL_CANCEL));
+      add_control(240, TFT_HEIGHT - 64, CONFIRM, imgConfirm, true, COLOR_CONTROL_CONFIRM);
     #endif
   }
 #endif // ENABLED(RS_STYLE_COLOR_UI)
@@ -853,8 +853,8 @@ void MenuItem_confirm::draw_select_screen(PGM_P const yes, PGM_P const no, const
     tft.add_text(tft_string.center(TFT_WIDTH), 0, COLOR_MENU_TEXT, tft_string);
   }
   #if ENABLED(TOUCH_SCREEN)
-    add_control(88, TFT_HEIGHT - 64, CANCEL, imgCancel, true, yesno ? HALF(COLOR_CONTROL_CANCEL) : COLOR_CONTROL_CANCEL);
-    add_control(328, TFT_HEIGHT - 64, CONFIRM, imgConfirm, true, yesno ? COLOR_CONTROL_CONFIRM : HALF(COLOR_CONTROL_CONFIRM));
+    add_control(328, TFT_HEIGHT - 64, CANCEL, imgCancel, true, yesno ? HALF(COLOR_CONTROL_CANCEL) : COLOR_CONTROL_CANCEL);
+    add_control(88, TFT_HEIGHT - 64, CONFIRM, imgConfirm, true, yesno ? COLOR_CONTROL_CONFIRM : HALF(COLOR_CONTROL_CONFIRM));
   #endif
 }
 
