@@ -6,11 +6,12 @@
 Основана на [Marlin 3D Printer Firmware](https://github.com/MarlinFirmware/Marlin)  версии 2.0.9.2
 
 ## Содержание:
-* [Главное](#главное) 
-* [Новый главный экран интерфейса](#новый-главный-экран-интерфейса) 
-* [Установка](#установка) 
-* [Настройка WiFi](#настройка-WiFi) 
-* [История](#история) 
+* [Главное](#главное)
+* [Новый главный экран интерфейса](#новый-главный-экран-интерфейса)
+* [Отображение предпросмотра](#отображение-предпросмотра)
+* [Установка](#установка)
+* [Настройка WiFi](#настройка-WiFi)
+* [История](#история)
 
 
 ## Главное
@@ -18,7 +19,7 @@
 - WiFi интерфейс для управления принтером и передачи файлов
 - активирован Linear Advance
 - активированы встроенные в прошивку реьракты (работают по командам G10, G11)
-- отображение картинки предпросмотра при выборе файла (поддерживается предпросмотр Prusaslicer и только на платах Robin Nano v1.3 и Robin Nano S v1.3)
+- отображение картинки предпросмотра при выборе файла (поддерживается предпросмотр PrusaSlicer и только на платах Robin Nano v1.3 и Robin Nano S v1.3)
 - активен датчик окончания филамента
 - включена калибровка стола ("Выровнять стол" с ручной подгонкой высоты сопла по 9 точкам)
 - включена подстройка винтами стола по 4 точкам, соответствующим положению регулировочных винтов ("Выровнять углы")
@@ -52,6 +53,20 @@
 В полосе прогресса под значением процентов пишется имя печатаемого файла.
 Иконки действий под прогрессом меняются на следующие: перейти в меню подстроек (Tune), перейти в главное меню, поставить печать на паузу и прервать печать (с подтверждением).
 
+## Отображение предпросмотра
+В прошивку была добавлена возможность показывать при выборе файла изображение предпросмотра, которое некоторые слайсеры умеют встраивать в файл с g-кодом.
+При выборе файла из списка открывается окно подтверждения начала печати. Если в этом файле имеется встроенное изображение предпросмотра и оно удовлетворяет ограничениям, это изображение будет показано в левой части экрана. Изображение автоматически масштабируется под размер, который поместится на экране.
+![Preview_File](IMG/preview.jpg)
+
+Если в файле нет встроенного изображения предпросмотра или оно в неподдерживаемом формате, то отобразится иконка по умолчанию.
+![Preview_Missed](IMG/nopreview.jpg)
+
+На текущий момент отображение предпросмотра имеет следующие ограничения:
+- поддерживается только предпросмотр, генерируемый слайсером PrusaSlicer; изображения, встраиваемые другими слайсерами будут проигнорированы;
+- из-за больших требований к оперативной памяти предпросмотр работает только на платах Robin Nano v1.3 и Robin Nano S v1.3 с контроллером STM32F407; на платах Robin Nano v1.2 с контроллером STM32F103 будет отображен обычный экран подтверждения печати файла, без предпросмотра;
+- изображение предпросмотра должно иметь ширину и высоту не меньше 100 и не больше 640 пикселей; изображения с другими размерами будут проигнорированы;
+- встроенное изображение должно располагаться в начале файла с g-кодом, его начало должно быть в первых 65 кб файла;
+
 ## Установка
 Внимание! Убедитесь, что в Вашем принтере совместимая плата управления!
 1. Загрузить релиз последней версии.
@@ -59,6 +74,7 @@
 3. Выключить принтер, вставить в него карту памяти, включить принтер.
 4. В течении 10-15 секунд принтер должен обновить прошивку. Процесс обновления отображается на дисплее.
 5. При первом обновлении прошивки со штатной система может после загрузки автоматически перейти в режим калибровки тач-дисплея.
+6. Крайне рекомендуется после обновления прошивки со штатной на Марлин зайти в меню настроек с сделать сброс настроек на заводские значения.
 
 ## Настройка WiFi
 К сожалению, настройка WiFi (имя точки доступа и пароль) пока нинака не реализована. Чтобы настроить работу WiFi, нужно сделать это в родной прошивке (от MKS), после чего можно обновляться на эту прошивку. Параметры настройки сохранятся.
@@ -115,12 +131,22 @@ Works with boards: **MKS Robin Nano v1.3** (removable drivers, STM32F407 control
 
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
 
+## Content:
+* [The main thing](#the-main-thing)
+* [New main interface screen](#new-main-interface-screen)
+* [Display preview](#display-preview)
+* [Installation](#installation)
+* [WiFi setup](#wifi-setup)
+* [Version history](#version-history)
+
 ## The main thing
-(updated 11.02.2021)
+(updated 11/06/2021)
 - activated Linear Advance
 - WiFi interface for printer control and file transfer
 - the filament end sensor is active
-- retracts built into the firmware are activated (working by commands G10, G11)- table calibration is enabled ("Align the table" with manual adjustment of the nozzle height by 9 points)
+- retracts built into the firmware are activated (working by commands G10, G11)
+- displaying a preview picture when selecting a file (PrusaSlicer preview is supported and only on Robin Nano v1.3 and Robin Nano S v1.3 boards)
+- table calibration is enabled ("Align the table" with manual adjustment of the nozzle height by 9 points)
 - adjustment is enabled by the table screws at 4 points, corresponding to the position of the adjusting screws ("Align the corners")
 - fixed all the jambs of the output of Russian-language inscriptions
 - support for Russian filenames
@@ -152,6 +178,20 @@ Under the nozzle and table icons, the current temperature is supplemented by the
 In the progress bar, under the percentages, the name of the file to be printed is written.
 The action icons under the progress change to the following: go to the adjustments menu (Tune), go to the main menu, pause printing and interrupt printing (with confirmation).
 
+## Display preview
+The firmware added the ability to show a preview image when selecting a file, which some slicers can embed in a file with a g-code.
+When you select a file from the list, a print start confirmation screen appears. If the selected file has an embedded preview image and it meets the constraints, this image will be shown on the left side of the screen. The image is automatically scaled to fit on the screen.
+![Preview_File](IMG/preview.jpg)
+
+If the file does not have an embedded preview image or it is in an unsupported format, the default icon will be displayed.
+![Preview_Missed](IMG/nopreview.jpg)
+
+Currently, the preview display has the following restrictions:
+- only preview generated by PrusaSlicer is supported; images embedded by other slicers will be ignored;
+- due to high requirements for RAM, preview works only on Robin Nano v1.3 and Robin Nano S v1.3 boards with STM32F407 controller; on Robin Nano v1.2 boards with STM32F103 controller, the usual screen for confirming the file printing will be displayed, without preview;
+- the preview image must have a width and height of at least 100 and no more than 640 pixels; images with other sizes will be ignored;
+- the embedded image must be located at the beginning of the g-code file, its beginning must be in the first 65 kb of the file;
+
 ## Installation
 Attention! Make sure your printer has a compatible control board!
 1. Download the latest version release.
@@ -159,12 +199,20 @@ Attention! Make sure your printer has a compatible control board!
 3. Turn off the printer, insert a memory card into it, turn on the printer.
 4. Within 10-15 seconds, the printer should update the firmware. The update process is shown on the display.
 5. At the first firmware update from the standard system, after loading, it can automatically switch to the touch-display calibration mode.
+6. It is highly recommended that after updating the firmware from the standard one to Marlin, go to the settings menu and reset the settings to the factory values.
 
 ## WiFi setup
 Unfortunately, the WiFi setting (hotspot name and password) has not been implemented yet. To set up WiFi, you need to do it in the native firmware (from MKS), after which you can update to this firmware. The settings will be saved.
 
-## History
-### 11.02.2021
+## Version history
+### 11/06/2021
+**v1.4**
+- **(only for Robin Nano v1.3 and Robin Nano S v1.3 boards) added preview image display from g-code file; currently only the preview generated by Prusaslicer is supported**
+- changed the operating conditions of motors at microstep 16 to facilitate the operation of Linear Advance on TMC2208/2225 drivers
+- in the confirmation windows, the positions of the buttons-icons "Confirm" and "Cancel" have been changed to more familiar ones - "Confirm" on the left, "Cancel" on the right
+- fixed display of print time on the main screen
+
+### 11/02/2021
 **v1.3**
 - **retracts are enabled in the firmware, the numbers in the settings of these retracts are given in convenient for use limits**
 - **added parking nozzle on pause in the far right corner**
@@ -172,7 +220,7 @@ Unfortunately, the WiFi setting (hotspot name and password) has not been impleme
 - the building of all configurations is divided into two variants: for drivers with microstep 16 and for drivers with microstepping 32
 - The Tune menu has been cleared of unnecessary items that are accessible from the main screen (temperature, cooling)
 
-### 10.28.2021
+### 10/28/2021
 **v1.2**
 - **added WiFi support (based on Sergey's sources - https://github.com/Sergey1560)**
 - **added firmware options for MKS Robin Nano S V1.3 and MKS Robin Nano V1.2**
@@ -181,8 +229,7 @@ Unfortunately, the WiFi setting (hotspot name and password) has not been impleme
 - added display of touch panel calibration values ​​by command M503
 - the maximum values ​​in the sliders of the digital parameters are limited
 
-## History
-### 10.26.2021
+### 10/26/2021
 **v1.1**
 - **Linear Advance is activated, which also works with the TMC2208/TMC2225 drivers without the need for any hardware changes**
 - **redesigned and expanded functionality of the main screen both in standby mode and in print mode - in fact, it is now a new interface**
@@ -193,7 +240,7 @@ Unfortunately, the WiFi setting (hotspot name and password) has not been impleme
 - items that duplicate the functionality of the main screen and are unnecessary have been removed from the menu
 - the menu item of information about the printer is activated, in which the main version of Marlin with the version of MarlinRB is available
 
-### 19.10.2021
+### 10/19/2021
 **v1.0**
 - basic configuration created
 - fixed all the flaws in working with strings in UTF8 format in Cyrillic
