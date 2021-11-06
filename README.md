@@ -9,7 +9,7 @@
 
 Основана на [Marlin 3D Printer Firmware](https://github.com/MarlinFirmware/Marlin)  версии 2.0.9.2
 
-## Содержание:
+## Содержание
 * [Главное](#главное)
 * [Новый главный экран интерфейса](#новый-главный-экран-интерфейса)
 * [Отображение предпросмотра](#отображение-предпросмотра)
@@ -135,7 +135,7 @@ Works with boards: **MKS Robin Nano v1.3** (removable drivers, STM32F407 control
 
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
 
-## Content:
+## Content
 * [The main thing](#the-main-thing)
 * [New main interface screen](#new-main-interface-screen)
 * [Display preview](#display-preview)
