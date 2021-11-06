@@ -1,4 +1,5 @@
 [English](#english-version)
+![Logo](IMG/marlin_reborn.jpg)
 # Прошивка MarlinRB для принтера Flyingbear Reborn
 Работает с платами: **MKS Robin Nano v1.3** (съемные драйвера, контроллер STM32F407), **MKS Robin Nano S v1.3** (несъемные драйвера, контроллер STM32F407) и **MKS Robin Nano v1.2** (съемные драйвера, контроллер STM32F103). Для всех трех плат прошивка построена в двух вариантах - для драйверов с микрошагом 16 и для драйверов с микрошагом 32.
 ![Interface](IMG/IMG_20211026_223227.jpg)
