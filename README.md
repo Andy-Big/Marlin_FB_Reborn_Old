@@ -152,7 +152,7 @@ Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin)
 
 ## Content
 * [The main thing](#the-main-thing)
-* [Correspondence of firmware options to different boards](#correspondence-of-firmware-options-to-different-boards)
+* [Correspondence of firmware variants to different boards](#correspondence-of-firmware-variants-to-different-boards)
 * [New main interface screen](#new-main-interface-screen)
 * [Display preview](#display-preview)
 * [Installation](#installation)
@@ -174,8 +174,8 @@ Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin)
 - interface - standard graphical with a modified main screen
 - choice of interface language - English or Russian
 
-## Correspondence of firmware options to different boards
-The firmware is assembled in several versions, each of which is suitable for a specific board that is found in the Reborn printer.
+## Correspondence of firmware variants to different boards
+The firmware is assembled in several variants, each of which is suitable for a specific board that is found in the Reborn printer.
 1. **v_Robin_Nano_1.2_x16** - designed for MKS Robin Nano v1.2 boards, also known as Flyingbear Reborn v2.0 in the stock configuration.
 <p align = "left"><img src = "IMG/robin_nano_12_.jpg" width = "600px"></p>
 
@@ -183,7 +183,7 @@ The firmware is assembled in several versions, each of which is suitable for a s
 <p align = "left"><img src = "IMG/robin_nano_13.jpg" width = "600px"></p>
 
 3. **v_Robin_Nano_S_1.3_x16** - designed for MKS Robin Nano S v1.3 boards with four soldered and one removable drivers in the stock configuration.
-Option **v_Robin_Nano_SM_1.3_x16** is suitable for the same boards if the user rearranged connectors E0 and E1, that is, the extruder motor was connected to the removable driver.
+Variant **v_Robin_Nano_SM_1.3_x16** is suitable for the same boards if the user rearranged connectors E0 and E1, that is, the extruder motor was connected to the removable driver.
 <p align = "left"><img src = "IMG/robin_nano_s13.jpg" width = "600px"></p>
 
 # New main interface screen
