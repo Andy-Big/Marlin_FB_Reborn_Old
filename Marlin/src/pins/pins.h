@@ -652,7 +652,7 @@
 #elif MB(MKS_ROBIN_NANO_V1_3_F4)
   #include "stm32f4/pins_MKS_ROBIN_NANO_V1_3_F4.h" // STM32F4                             env:mks_robin_nano_v1_3_f4_x32 env:mks_robin_nano_v1_3_f4_x16 env:mks_robin_nano_v1_3_f4 env:mks_robin_nano_v1_3_f4_MY
 #elif MB(MKS_ROBIN_NANO_SV1_3_F4)
-  #include "stm32f4/pins_MKS_ROBIN_NANO_V1_3_F4.h" // STM32F4                             env:mks_robin_nano_Sv1_3_f4_x32 env:mks_robin_nano_Sv1_3_f4_x16
+  #include "stm32f4/pins_MKS_ROBIN_NANO_V1_3_F4.h" // STM32F4                             env:mks_robin_nano_Sv1_3_f4_x32 env:mks_robin_nano_Sv1_3_f4_x16 env:mks_robin_nano_SMv1_3_f4_x16
 #elif MB(MKS_EAGLE)
   #include "stm32f4/pins_MKS_EAGLE.h"           // STM32F4                                env:mks_eagle
 
