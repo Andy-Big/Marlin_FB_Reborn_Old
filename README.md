@@ -4,7 +4,7 @@
 </p>
 
 # Прошивка MarlinRB для принтера Flyingbear Reborn
-Работает с платами: **MKS Robin Nano v1.3** (съемные драйвера, контроллер STM32F407), **MKS Robin Nano S v1.3** (несъемные драйвера, контроллер STM32F407) и **MKS Robin Nano v1.2** (съемные драйвера, контроллер STM32F103). Для всех трех плат прошивка построена в двух вариантах - для драйверов с микрошагом 16 и для драйверов с микрошагом 32.
+Работает с платами: **MKS Robin Nano v1.3** (съемные драйвера, контроллер STM32F407), **MKS Robin Nano S v1.3** (несъемные драйвера, контроллер STM32F407) и **MKS Robin Nano v1.1** (красная плата со съемными драйверами, контроллер STM32F103, может иметь название Flyingbear Reborn v2.0). Для всех трех плат прошивка построена в двух вариантах - для драйверов с микрошагом 16 и для драйверов с микрошагом 32.
 ![Interface](IMG/IMG_20211026_223227.jpg)
 
 Основана на [Marlin 3D Printer Firmware](https://github.com/MarlinFirmware/Marlin)  версии 2.0.9.2
@@ -23,7 +23,7 @@
 Обновлено 06.11.2021
 - WiFi интерфейс для управления принтером и передачи файлов
 - активирован Linear Advance
-- активированы встроенные в прошивку реьракты (работают по командам G10, G11)
+- активирована возможность использовать встроенные в прошивку ретракты (командами G10, G11)
 - отображение картинки предпросмотра при выборе файла (поддерживается предпросмотр PrusaSlicer и только на платах Robin Nano v1.3 и Robin Nano S v1.3)
 - активен датчик окончания филамента
 - включена калибровка стола ("Выровнять стол" с ручной подгонкой высоты сопла по 9 точкам)
@@ -36,7 +36,7 @@
 
 ## Соответствие вариантов прошивки разным платам
 Прошивка собрана в нескольких вариантах, каждый из которых подходит к определенной плате, которая встречается в принтере Reborn.
-1. **v_Robin_Nano_1.2_x16** - предназначена для плат MKS Robin Nano v1.2, известной так же как Flyingbear Reborn v2.0 в стоковой конфигурации.
+1. **v_Robin_Nano_1.1_x16** - предназначена для плат MKS Robin Nano v1.1, известной так же как Flyingbear Reborn v2.0 в стоковой конфигурации.
 <p align="left"><img src="IMG/robin_nano_12_.jpg" width="600px"></p>
 
 2. **v_Robin_Nano_1.3_x32** - предназначена для плат MKS Robin Nano v1.3 со съемными драйверами в стоковой конфигурации.
@@ -99,6 +99,14 @@
 К сожалению, настройка WiFi (имя точки доступа и пароль) пока никак не реализована. Чтобы настроить работу WiFi, нужно сделать это в родной прошивке (от MKS), после чего можно обновляться на эту прошивку. Параметры настройки сохранятся.
 
 ## История
+### 07.01.2022
+**v1.5**
+- увеличена максимальная температура сопла до 270°C
+- по умолчанию значение коэффициента LINAER ADVANCE установлено в 0, при необходимости его всегда можно изменить в меню настроек
+- небольшие изменения в настройках работы моторов (MINIMUM_STEPPER_PULSE установлен на 16 для микрошага 16, и на 8 для микрошага 32)
+- изменено имя варианта для платы MKS Robin Nano v1.1 с v_Robin_Nano_1.2_x16 на v_Robin_Nano_1.1_x16
+- увеличен период контроля нагрева стола для того, чтобы принтер не выдавал ошибку при медленном нагреве
+
 ### 06.11.2021
 **v1.4**
 - **(только для плат Robin Nano v1.3 и Robin Nano S v1.3) добавлено отображение картинки предварительный просмотра из файла g-кода; на данный момент поддерживается только предварительный просмотр, генерируемый слайсером Prusaslicer**
@@ -145,7 +153,7 @@
 
 ## English version
 ## MarlinRB firmware for Flyingbear Reborn printer
-Works with boards: **MKS Robin Nano v1.3** (removable drivers, STM32F407 controller), **MKS Robin Nano S v1.3** (non-removable drivers, STM32F407 controller) and **MKS Robin Nano v1.2** (removable drivers, STM32F103 controller ). For all three boards, the firmware is built in two versions - for drivers with microstep 16 and for drivers with microstepping 32.
+Works with boards: **MKS Robin Nano v1.3** (removable drivers, STM32F407 controller), **MKS Robin Nano S v1.3** (non-removable drivers, STM32F407 controller) and **MKS Robin Nano v1.1** (red board with removable drivers, STM32F103 controller, can have the name Flyingbear Reborn v2.0). For all three boards, the firmware is built in two versions - for drivers with microstep 16 and for drivers with microstepping 32.
 ![Interface](IMG/IMG_20211026_223227.jpg)
 
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
@@ -164,7 +172,7 @@ Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin)
 - activated Linear Advance
 - WiFi interface for printer control and file transfer
 - the filament end sensor is active
-- retracts built into the firmware are activated (working by commands G10, G11)
+- the ability to use the retracts built into the firmware is activated (by commands G10, G11)
 - displaying a preview picture when selecting a file (PrusaSlicer preview is supported and only on Robin Nano v1.3 and Robin Nano S v1.3 boards)
 - table calibration is enabled ("Align the table" with manual adjustment of the nozzle height by 9 points)
 - adjustment is enabled by the table screws at 4 points, corresponding to the position of the adjusting screws ("Align the corners")
@@ -176,7 +184,7 @@ Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin)
 
 ## Correspondence of firmware variants to different boards
 The firmware is assembled in several variants, each of which is suitable for a specific board that is found in the Reborn printer.
-1. **v_Robin_Nano_1.2_x16** - designed for MKS Robin Nano v1.2 boards, also known as Flyingbear Reborn v2.0 in the stock configuration.
+1. **v_Robin_Nano_1.1_x16** - designed for MKS Robin Nano v1.1 boards, also known as Flyingbear Reborn v2.0 in the stock configuration.
 <p align = "left"><img src = "IMG/robin_nano_12_.jpg" width = "600px"></p>
 
 2. **v_Robin_Nano_1.3_x32** - intended for MKS Robin Nano v1.3 boards with removable drivers in the stock configuration.

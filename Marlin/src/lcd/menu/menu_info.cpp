@@ -32,7 +32,7 @@
 
 #include "../tft/tft_string.h"
 
-#include "..\..\module\mks_wifi\mks_wifi.h"
+#include "../../module/mks_wifi/mks_wifi.h"
 
 
 #if HAS_GAMES
