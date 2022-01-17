@@ -172,3 +172,6 @@ __pycache__
 # Simulation / Native
 eeprom.dat
 imgui.ini
+
+# Local Debug
+output.map
