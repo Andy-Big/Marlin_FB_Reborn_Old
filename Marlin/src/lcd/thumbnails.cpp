@@ -36,13 +36,9 @@ bool    Thumbnails::Open(char *fname)
     memset(&decode_info, 0, sizeof(decode_info));
 	decode_info.old_draw_y = -1;
 
-    DEBUG("Thumbnails: opening %s", fname);
-
     card.openFileRead(fname, 9);
     if (!card.isFileOpen())
     {
-        DEBUG("Thumbnails: SD file %s opening fail", fname);
-
         return FALSE;
     }
 
@@ -69,13 +65,9 @@ bool    Thumbnails::Open(char *fname)
 	// не нашли
 	if (decode_info.img_base64_size == 0)
     {
-        DEBUG("Thumbnails: preview not found");
-
         card.closefile();
 		return FALSE;
     }
-
-    DEBUG("Thumbnails: preview found: w=%lu h=%lu", decode_info.img_width, decode_info.img_height);
 
 	// запоминаем позицию начала кодированного PNG в файле
 	decode_info.srcfile_begin_pos = card.getIndex();
@@ -105,8 +97,6 @@ void    Thumbnails::DrawThumbnail(uint16_t x, uint16_t y, uint16_t w, uint16_t h
     if (decode_info.img_base64_size == 0)
         return;
     
-    DEBUG("Thumbnails: begin decode");
-
 	// вычисляем масштабирование
 	float s1 = (float)decode_info.img_width / (float)w;
 	float s2 = (float)decode_info.img_height / (float)h;
@@ -126,22 +116,12 @@ void    Thumbnails::DrawThumbnail(uint16_t x, uint16_t y, uint16_t w, uint16_t h
     int rc = png.open("", PNGOpen, PNGClose, PNGRead, PNGSeek, PNGDraw);
     if (rc != PNG_SUCCESS)
     {
-        DEBUG("Thumbnails: PNGdec opening fail");
-
         return;
     }
 
     tft.set_window(x, y, x+decode_info.draw_width-1, y+decode_info.draw_height-1);
 //    tft.set_window(x, y, x+w, y+h);
     rc = png.decode(NULL, 0);
-    if (rc != PNG_SUCCESS)
-    {
-        DEBUG("Thumbnails: decode fail");
-    }
-    else
-    {
-        DEBUG("Thumbnails: decode success");
-    }
 }
 
 
@@ -149,16 +129,11 @@ void    Thumbnails::DrawThumbnail(uint16_t x, uint16_t y, uint16_t w, uint16_t h
 
 void    Thumbnails::DrawDefaultThumbnail(uint16_t x, uint16_t y, uint16_t w, uint16_t h)
 {
-    DEBUG("ThumbnailsDefault: begin");
-
     int rc = png.openFLASH((uint8_t*)empty_tumbnail_img, sizeof(empty_tumbnail_img), PNGDraw);
     if (rc != PNG_SUCCESS)
     {
-        DEBUG("ThumbnailsDefault: PNGdec opening fail");
-
         return;
     }
-    DEBUG("ThumbnailsDefault: image opened: w=%ld, h=%ld", png.getWidth(), png.getHeight());
 
     decode_info.img_width = png.getWidth();
     decode_info.img_height = png.getHeight();
@@ -179,19 +154,10 @@ void    Thumbnails::DrawDefaultThumbnail(uint16_t x, uint16_t y, uint16_t w, uin
     if (decode_info.draw_height < h)
         y += (h - decode_info.draw_height) / 2;
 
-    DEBUG("ThumbnailsDefault: ready to draw: sc=%ld, dw=%ld, dh=%ld", (int32_t)(decode_info.scale*100), decode_info.draw_width, decode_info.draw_height);
 
     tft.set_window(x, y, x+decode_info.draw_width-1, y+decode_info.draw_height-1);
 //    tft.set_window(x, y, x+w, y+h);
     rc = png.decode(NULL, 0);
-    if (rc != PNG_SUCCESS)
-    {
-        DEBUG("ThumbnailsDefault: decode fail");
-    }
-    else
-    {
-        DEBUG("ThumbnailsDefault: decode success");
-    }
 }
 
 

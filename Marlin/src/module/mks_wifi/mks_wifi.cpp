@@ -309,7 +309,6 @@ void mks_wifi_parse_packet(ESP_PROTOC_FRAME *packet){
 				char gcode_cmd[50];
 				uint32_t cmd_index;
 				// packet->data[packet->dataLen] = 0;
-				// DEBUG("Gcode packet: %s",packet->data);
 				
 				cmd_index = 0;
 				memset(gcode_cmd,0,50);

@@ -44,22 +44,17 @@ void mks_wifi_sd_ls(void){
 
 uint8_t mks_wifi_sd_init(void){
    card.release();
-   DEBUG("Card release");
    res = f_mount((FATFS *)&FATFS_Obj, "0", 1);
-   DEBUG("SD init result:%d",res);
    return (uint8_t)res;
 }
 
 void mks_wifi_sd_deinit(void){
-   DEBUG("Unmount SD");
    f_mount(0, "", 1);
-   DEBUG("Marlin mount");
    card.mount();
 };
 
 void sd_delete_file(char *filename){
    mks_wifi_sd_init();
-   DEBUG("Remove %s",filename);
    f_unlink(filename);
    mks_wifi_sd_deinit();
 }
@@ -82,7 +77,6 @@ uint8_t get_dos_filename(char *filename, char* dosfilename){
             if (res != FR_OK || fno.fname[0] == 0) break;  /* Break on error or end of dir */
             
             if(!strcmp((char *)fno.fname,filename)){
-               DEBUG("Found %s %s\n", fno.fname, fno.altname);
                strncpy(dosfilename,(char *)fno.altname,13);
                ret_val = 1;
             }

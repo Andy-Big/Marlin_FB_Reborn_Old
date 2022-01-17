@@ -28,7 +28,6 @@ void mks_update_status(char *filename, uint32_t current_filesize, uint32_t file_
 
     if((percent_done != last_value)){
       call_count++;
-      DEBUG("LCD call %ld CF: %ld  FS: %ld",call_count,current_filesize,file_size);
       tft.queue.reset();
       tft.canvas(0, 0, TFT_WIDTH, TFT_HEIGHT);
       tft.set_background(COLOR_BACKGROUND);

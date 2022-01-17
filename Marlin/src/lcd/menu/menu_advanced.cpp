@@ -58,6 +58,11 @@
 void menu_tmc();
 void menu_backlash();
 
+#ifdef RS_ADDSETTINGS
+  void menu_advanced_axesdir();
+#endif
+
+
 #if HAS_MOTOR_CURRENT_DAC
 
   #include "../../feature/dac/stepper_dac.h"
@@ -587,6 +592,10 @@ void menu_advanced_settings() {
   if (!is_busy)
     SUBMENU(MSG_STEPS_PER_MM, menu_advanced_steps_per_mm);
 
+  #ifdef RS_ADDSETTINGS
+    SUBMENU(MSG_AXIS_DIRECTION, menu_advanced_axesdir);
+  #endif
+
   #if ENABLED(BACKLASH_GCODE)
     SUBMENU(MSG_BACKLASH, menu_backlash);
   #endif
@@ -649,5 +658,24 @@ void menu_advanced_settings() {
 
   END_MENU();
 }
+
+
+
+  #ifdef RS_ADDSETTINGS
+  void menu_advanced_axesdir()
+  {
+    START_MENU();
+    // BACK_ITEM(MSG_ADVANCED_SETTINGS);
+
+    EDIT_ITEM(bool, MSG_X_INVERT, &planner.invert_axis.invert_axis[X_AXIS]);
+    EDIT_ITEM(bool, MSG_Y_INVERT, &planner.invert_axis.invert_axis[Y_AXIS]);
+    EDIT_ITEM(bool, MSG_Z1_INVERT, &planner.invert_axis.invert_axis[Z_AXIS]);
+    EDIT_ITEM(bool, MSG_Z2_INVERT, &planner.invert_axis.z2_vs_z_dir);
+    EDIT_ITEM(bool, MSG_E_INVERT, &planner.invert_axis.invert_axis[E0_AXIS]);
+
+    END_MENU();
+  }
+  #endif  //   #ifdef RS_ADDSETTINGS
+
 
 #endif // HAS_LCD_MENU

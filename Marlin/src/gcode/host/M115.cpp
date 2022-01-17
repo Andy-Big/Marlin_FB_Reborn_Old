@@ -23,6 +23,7 @@
 #include "../gcode.h"
 #include "../../inc/MarlinConfig.h"
 #include "../queue.h"           // for getting the command port
+#include "../../module/settings.h"
 
 
 #if ENABLED(M115_GEOMETRY_REPORT)
@@ -48,19 +49,24 @@
  *       the capability is not present.
  */
 void GcodeSuite::M115() {
+  char string[32];
   SERIAL_ECHOLNPGM(
-    "FIRMWARE_NAME:Marlin " DETAILED_BUILD_VERSION " (" __DATE__ " " __TIME__ ") "
-    "SOURCE_CODE_URL:" SOURCE_CODE_URL " "
-    "PROTOCOL_VERSION:" PROTOCOL_VERSION " "
-    "MACHINE_TYPE:" MACHINE_NAME " "
-    "EXTRUDER_COUNT:" STRINGIFY(EXTRUDERS) " "
+    "FIRMWARE_NAME:Marlin " DETAILED_BUILD_VERSION " (" __DATE__ " " __TIME__ ") \n"
+    "SOURCE_CODE_URL:" SOURCE_CODE_URL " \n"
+    "PROTOCOL_VERSION:" PROTOCOL_VERSION " \n"
+    "MACHINE_TYPE:" MACHINE_NAME " \n"
+    "EXTRUDER_COUNT:" STRINGIFY(EXTRUDERS) " \n"
     #if LINEAR_AXES != XYZ
-      "AXIS_COUNT:" STRINGIFY(LINEAR_AXES) " "
+      "AXIS_COUNT:" STRINGIFY(LINEAR_AXES) " \n"
     #endif
     #ifdef MACHINE_UUID
-      "UUID:" MACHINE_UUID
+      "UUID:" MACHINE_UUID " "
     #endif
   );
+  sprintf(string, "%u", settings.datasize());
+  strcat(string, "\n");
+  SERIAL_ECHOLNPGM("EPROM datasize: ", settings.datasize(), "\n");
+
 
   #if ENABLED(EXTENDED_CAPABILITIES_REPORT)
 

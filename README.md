@@ -20,12 +20,15 @@
 
 
 ## Главное
-Обновлено 07.01.2022
+Обновлено 17.01.2022
 - WiFi интерфейс для управления принтером и передачи файлов
 - активирован Linear Advance
 - активирована возможность использовать встроенные в прошивку ретракты (командами G10, G11)
 - отображение картинки предпросмотра при выборе файла (поддерживается предпросмотр PrusaSlicer и только на платах Robin Nano v1.3 и Robin Nano S v1.3)
 - активен датчик окончания филамента
+- предусмотрено подключение модуля управления питанием (PSU) MKS PWC
+- добавлена настройка автоматического отключения питания по окончанию текущей печати (при подключенном модуле управления питанием)
+- добавлена настройка направления вращения моторов X/Y/Z/Z2/E
 - включена калибровка стола ("Выровнять стол" с ручной подгонкой высоты сопла по 9 точкам)
 - включена подстройка винтами стола по 4 точкам, соответствующим положению регулировочных винтов ("Выровнять углы")
 - исправлены все косяки вывода русскоязычных надписей
@@ -99,6 +102,15 @@
 К сожалению, настройка WiFi (имя точки доступа и пароль) пока никак не реализована. Чтобы настроить работу WiFi, нужно сделать это в родной прошивке (от MKS), после чего можно обновляться на эту прошивку. Параметры настройки сохранятся.
 
 ## История
+### 17.01.2022
+**v1.6**
+- активирована работа с модулем управления питания (PSU) MKS PWC; при наличии этого модуля принтер может автоматически отключаться от питания при обнаружении ошибки - например, неконтролируемого разогрева хотэнда или стола; отключение принтера по команде модуля деактивирована, чтобы принтер не выключался сам если модуля управления питанием нет
+- в меню настроек добавлены настройки инверсии моторов
+- изменена обработка команды паузы (M25) - теперь эта команда по умолчанию выводит сопло в позицию парковки и ожидает нажатия пользователем на экран
+- активирована функция форсированного включения вентилятора обдува модели - при включении на вентилятор в течении 0.05 сек подается полное напряжение; это помогает вентилятору стартовать на низких оборотах
+- изменена на 300 Гц частота ШИМ вентилятора охлаждения модели
+- добавлена настройка автоматического выключения принтера по окончанию печати (если установлен модуль управления питанием PSU); срабатывает только при успешном завершении печати если установлена соответствующая галочка в меню настроек (появляется после начала печати); по умолчанию автовыключение не активно
+
 ### 07.01.2022
 **v1.5**
 - увеличена максимальная температура сопла до 270°C
@@ -169,10 +181,13 @@ Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin)
 * [Version history](#version-history)
 
 ## The main thing
-(updated 01/07/2022)
+(updated 01/17/2022)
 - activated Linear Advance
 - WiFi interface for printer control and file transfer
 - the filament end sensor is active
+- connection of the power management unit (PSU) MKS PWC is provided
+- added setting for automatic power off at the end of the current print job (if the power management module is connected)
+- added direction of rotation of motors X/Y/Z/Z2/E
 - the ability to use the retracts built into the firmware is activated (by commands G10, G11)
 - displaying a preview picture when selecting a file (PrusaSlicer preview is supported and only on Robin Nano v1.3 and Robin Nano S v1.3 boards)
 - table calibration is enabled ("Align the table" with manual adjustment of the nozzle height by 9 points)
@@ -248,6 +263,15 @@ Attention! Make sure your printer has a compatible control board!
 Unfortunately, the WiFi setting (hotspot name and password) has not been implemented yet. To set up WiFi, you need to do it in the native firmware (from MKS), after which you can update to this firmware. The settings will be saved.
 
 ## Version history
+### 01/17/2022
+**v1.6**
+- the work of the firmware with the power control unit (PSU) MKS PWC is activated; if this module is present, the printer can automatically turn off the power when an error is detected - for example, uncontrolled heating of the hotend or table; turn off the printer on the command of the module is disabled so that the printer does not turn off by itself if there is no power management module
+- added motor inversion settings to the settings menu
+- changed the processing of the pause command (M25) - now this command by default brings the nozzle to the parking position and waits for the user to press the screen
+- the function of forced switching on of the fan for blowing the model is activated - when turned on, the fan is supplied with full voltage for 0.05 seconds; this helps the fan to start at low speeds
+- changed to 300 Hz the PWM frequency of the cooling fan of the model
+- added setting to automatically turn off the printer at the end of printing (if the power management module PSU is installed); shutdown works only when printing is successfully completed if the corresponding setting is set in the settings menu (appears after printing starts); By default, auto power off is disabled
+
 ### 01/07/2022
 **v1.5**
 - increased maximum nozzle temperature to 270° C

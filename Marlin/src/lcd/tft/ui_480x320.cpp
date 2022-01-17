@@ -753,11 +753,6 @@ void TFT::draw_edit_screen_buttons() {
 #if ENABLED(RS_STYLE_COLOR_UI)
   void MenuItem_fileconfirm::draw_select_screen(const char * const string/*=nullptr*/) {
 
-    if (string == NULL)
-      DEBUG("MenuItem_fileconfirm - Draw: NULL");
-    else
-      DEBUG("MenuItem_fileconfirm - Draw: %s", string);
-
     #if ENABLED(THUMBNAILS_PREVIEW)
       char  str[256];
 

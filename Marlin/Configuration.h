@@ -375,14 +375,14 @@
  * Enable and connect the power supply to the PS_ON_PIN.
  * Specify whether the power supply is active HIGH or active LOW.
  */
-//#define PSU_CONTROL
-//#define PSU_NAME "Power Supply"
+#define PSU_CONTROL
+#define PSU_NAME "Power Supply"
 
 #if ENABLED(PSU_CONTROL)
-  //#define MKS_PWC                 // Using the MKS PWC add-on
+  #define MKS_PWC                 // Using the MKS PWC add-on
   //#define PS_OFF_CONFIRM          // Confirm dialog when power off
   //#define PS_OFF_SOUND            // Beep 1s when power off
-  #define PSU_ACTIVE_STATE LOW      // Set 'LOW' for ATX, 'HIGH' for X-Box
+  #define PSU_ACTIVE_STATE HIGH      // Set 'LOW' for ATX, 'HIGH' for X-Box
 
   //#define PSU_DEFAULT_OFF         // Keep power off until enabled directly with M80
   //#define PSU_POWERUP_DELAY 250   // (ms) Delay for the PSU to warm up to full power
@@ -502,7 +502,11 @@
 #ifdef MARLIN_CONFIG_MY
   #define TEMP_SENSOR_0 5
 #else
-  #define TEMP_SENSOR_0 1
+  #ifdef HIGH_TEMPERATURE_MODE
+    #define TEMP_SENSOR_0 66
+  #else
+    #define TEMP_SENSOR_0 1
+  #endif
 #endif
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
@@ -572,7 +576,11 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 300
+#ifdef HIGH_TEMPERATURE_MODE
+  #define HEATER_0_MAXTEMP 500
+#else
+  #define HEATER_0_MAXTEMP 300
+#endif
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -617,9 +625,15 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp 9.91
-    #define DEFAULT_Ki 0.55
-    #define DEFAULT_Kd 44.99
+    #ifdef HIGH_TEMPERATURE_MODE
+      #define DEFAULT_Kp 14.0
+      #define DEFAULT_Ki 0.5
+      #define DEFAULT_Kd 125.0
+    #else
+      #define DEFAULT_Kp 9.91
+      #define DEFAULT_Ki 0.55
+      #define DEFAULT_Kd 44.99
+    #endif
 
     // #define DEFAULT_Kp  22.20
     // #define DEFAULT_Ki   1.08
@@ -2923,7 +2937,7 @@
 //#define NUM_M106_FANS 1
 
 // Increase the FAN PWM frequency. Removes the PWM noise but increases heating in the FET/Arduino
-//#define FAST_PWM_FAN
+#define FAST_PWM_FAN
 
 // Use software PWM to drive the fan, as for the heaters. This uses a very low frequency
 // which is not as annoying as with the hardware PWM. On the other hand, if this frequency
@@ -3057,3 +3071,7 @@
 
 // Disable servo with M282 to reduce power consumption, noise, and heat when not in use
 //#define SERVO_DETACH_GCODE
+
+
+// Additional settings in EEPROM
+#define RS_ADDSETTINGS

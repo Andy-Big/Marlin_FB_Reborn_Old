@@ -34,6 +34,7 @@
 #include "../../module/printcounter.h"
 #include "../../module/stepper.h"
 #include "../../sd/cardreader.h"
+#include "../../module/settings.h"
 
 #if ENABLED(PSU_CONTROL)
   #include "../../feature/power.h"
@@ -285,6 +286,10 @@ void menu_main() {
     #endif
 
     SUBMENU(MSG_TUNE, menu_tune);
+
+    #ifdef RS_ADDSETTINGS
+      EDIT_ITEM(bool, MSG_POWEROFF_AT_END, &extra_settings.poweroff_at_printed);
+    #endif  // #ifdef RS_ADDSETTINGS
 
     #if ENABLED(CANCEL_OBJECTS) && DISABLED(SLIM_LCD_MENUS)
       SUBMENU(MSG_CANCEL_OBJECT, []{ editable.int8 = -1; ui.goto_screen(menu_cancelobject); });

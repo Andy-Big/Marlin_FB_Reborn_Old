@@ -31,6 +31,16 @@
   #include "../HAL/shared/eeprom_api.h"
 #endif
 
+
+#ifdef RS_ADDSETTINGS
+  typedef struct
+  {
+      bool poweroff_at_printed;
+
+  } extra_settings_t;
+  extern extra_settings_t extra_settings;
+#endif  // #ifdef RS_ADDSETTINGS
+
 class MarlinSettings {
   public:
     static uint16_t datasize();
@@ -95,6 +105,7 @@ class MarlinSettings {
 
   private:
     static void postprocess();
+
 
     #if ENABLED(EEPROM_SETTINGS)
 
