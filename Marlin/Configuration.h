@@ -38,7 +38,7 @@
  * Advanced settings can be found in Configuration_adv.h
  */
 #define CONFIGURATION_H_VERSION 02000902
-#define REBORN_FW_VERSION 0105
+#define REBORN_FW_VERSION 0106
 
 //===========================================================================
 //============================= Getting Started =============================
