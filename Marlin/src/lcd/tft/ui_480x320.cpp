@@ -345,7 +345,7 @@ void MarlinUI::draw_status_screen() {
   if (printJobOngoing() || printingIsPaused())
   {
 
-    #ifdef MARLIN_CONFIG_MY
+    #ifdef _MARLIN_CONFIG_MY
       // heating time for debug purpose
       tft_string.add(" / ");
       heating.toDigital(buffer);

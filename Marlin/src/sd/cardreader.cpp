@@ -295,7 +295,6 @@ void CardReader::printListing(
       char *pathn;
       SdFile child = parent; // child.close() in destructor
       // search for path
-      pathn[0] = 0;
       if (parser.string_arg != 0)
       {
               mks_wifi_out_add((uint8_t*)"STRING_ARG: ", strlen("STRING_ARG: ")); 

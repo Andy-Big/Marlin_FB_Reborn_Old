@@ -175,3 +175,6 @@ imgui.ini
 
 # Local Debug
 output.map
+
+# Releases directory
+/Releases/
