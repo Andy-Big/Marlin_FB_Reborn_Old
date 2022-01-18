@@ -9,6 +9,8 @@
 
 Основана на [Marlin 3D Printer Firmware](https://github.com/MarlinFirmware/Marlin)  версии 2.0.9.2
 
+Собранные готовые варианты прошивки находятся здесь - [https://github.com/Andy-Big/Marlin_FB_Reborn/releases](https://github.com/Andy-Big/Marlin_FB_Reborn/releases)
+
 ## Содержание
 * [Главное](#главное)
 * [Соответствие вариантов прошивки разным платам](#соответствие-вариантов-прошивки-разным-платам)
@@ -170,6 +172,8 @@ Works with boards: **MKS Robin Nano v1.3** (removable drivers, STM32F407 control
 ![Interface](IMG/IMG_20211026_223227.jpg)
 
 Based on [Marlin 3D Printer Firmware] (https://github.com/MarlinFirmware/Marlin) version 2.0.9.2
+
+The assembled ready-made firmware versions are here - [https://github.com/Andy-Big/Marlin_FB_Reborn/releases](https://github.com/Andy-Big/Marlin_FB_Reborn/releases)
 
 ## Content
 * [The main thing](#the-main-thing)
