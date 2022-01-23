@@ -914,16 +914,22 @@ namespace Language_ru {
   LSTR MSG_WIFI_NETWORK                   = _UxGT("Сеть:");
   LSTR MSG_WIFI_ADDRESS                   = _UxGT("IP адрес");
   
-  #ifdef RS_ADDSETTINGS
-    LSTR MSG_AXIS_DIRECTION               = _UxGT("Инверсия моторов");
-    LSTR MSG_X_INVERT                     = STR_X _UxGT(" Инверсия");
-    LSTR MSG_Y_INVERT                     = STR_Y _UxGT(" Инверсия");
-    LSTR MSG_Z1_INVERT                    = STR_Z1 _UxGT(" Инверсия");
-    LSTR MSG_Z2_INVERT                    = STR_Z2 _UxGT(" Инверсия отн. Z1");
-    LSTR MSG_E_INVERT                     = STR_E _UxGT(" Инверсия");
+  #if ENABLED(RS_STYLE_COLOR_UI)
+    #if ENABLED(RS_ADDSETTINGS)
+      LSTR MSG_AXIS_DIRECTION               = _UxGT("Инверсия моторов");
+      LSTR MSG_X_INVERT                     = STR_X _UxGT(" Инверсия");
+      LSTR MSG_Y_INVERT                     = STR_Y _UxGT(" Инверсия");
+      LSTR MSG_Z1_INVERT                    = STR_Z1 _UxGT(" Инверсия");
+      LSTR MSG_Z2_INVERT                    = STR_Z2 _UxGT(" Инверсия отн. Z1");
+      LSTR MSG_E_INVERT                     = STR_E _UxGT(" Инверсия");
 
-    LSTR MSG_POWEROFF_AT_END              = STR_E _UxGT("Выключить после печати");
-  #endif
+      LSTR MSG_POWEROFF_AT_END              = _UxGT("Выключить после печати");
+    #endif
+
+    LSTR MSG_WAIT_NOZZLE_COOL               = _UxGT("Ожидание остывания сопла.");
+    LSTR MSG_THEN_PRINTER_WILL_OFF          = _UxGT("После этого принтер будет выключен.");
+    LSTR MSG_PRESS_SCREEN_TO_CANCEL         = _UxGT("Нажмите на экран для отмены");
+  #endif  // RS_STYLE_COLOR_UI
 
 }
 

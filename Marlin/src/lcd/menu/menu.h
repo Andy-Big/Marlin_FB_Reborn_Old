@@ -270,6 +270,10 @@ void _lcd_draw_homing();
   void touch_screen_calibration();
 #endif
 
+#if ENABLED(RS_STYLE_COLOR_UI)
+  void poweroff_wait();
+#endif
+
 extern uint8_t screen_history_depth;
 inline void clear_menu_history() { screen_history_depth = 0; }
 

@@ -2907,13 +2907,6 @@
 
   #if ENABLED(TFT_COLOR_UI)
     #define SINGLE_TOUCH_NAVIGATION
-    #define RS_STYLE_COLOR_UI       // New style of Main screen (RebornStyle)
-  #endif
-#endif
-
-#ifdef MCU_STM32F407VE
-  #if ENABLED(RS_STYLE_COLOR_UI)
-    #define THUMBNAILS_PREVIEW
   #endif
 #endif
 
@@ -3073,5 +3066,20 @@
 //#define SERVO_DETACH_GCODE
 
 
+
+#if ENABLED(TOUCH_SCREEN)
+  #if ENABLED(TFT_COLOR_UI)
+    #define RS_STYLE_COLOR_UI
+  #endif
+#endif
+
+#ifdef MCU_STM32F407VE
+  #if ENABLED(RS_STYLE_COLOR_UI)
+    #define THUMBNAILS_PREVIEW
+  #endif
+#endif
+
 // Additional settings in EEPROM
-#define RS_ADDSETTINGS
+#if ENABLED(RS_STYLE_COLOR_UI)
+  #define RS_ADDSETTINGS
+#endif

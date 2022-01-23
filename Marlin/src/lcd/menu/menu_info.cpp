@@ -108,7 +108,19 @@ void menu_info_thermistors() {
   #if HAS_EXTRUDERS
     #define THERMISTOR_ID TEMP_SENSOR_0
     #include "../thermistornames.h"
-    STATIC_ITEM_P(PSTR(LCD_STR_E0 ": " THERMISTOR_NAME), SS_INVERT);
+    #if ENABLED(RS_ADDSETTINGS)
+      char tname[64];
+      strcpy(tname, LCD_STR_E0);
+      strcat(tname, ": ");
+      strcat(tname, thermistors_data.heater_type[0]->name);
+
+      // tft_string.set(LCD_STR_E0);
+      // tft_string.add(": ");
+      // tft_string.add(thermistors_data.heater_type[0]->name);
+      STATIC_ITEM_P(PSTR(tname), SS_INVERT);
+    #else
+      STATIC_ITEM_P(PSTR(LCD_STR_E0 ": " THERMISTOR_NAME), SS_INVERT);
+    #endif
     PSTRING_ITEM(MSG_INFO_MIN_TEMP, STRINGIFY(HEATER_0_MINTEMP), SS_LEFT);
     PSTRING_ITEM(MSG_INFO_MAX_TEMP, STRINGIFY(HEATER_0_MAXTEMP), SS_LEFT);
     STATIC_ITEM(TERN(WATCH_HOTENDS, MSG_INFO_RUNAWAY_ON, MSG_INFO_RUNAWAY_OFF), SS_LEFT);
@@ -317,7 +329,7 @@ void menu_info() {
     SUBMENU(MSG_INFO_PRINTER_MENU, menu_info_printer);           // Printer Info >
     SUBMENU(MSG_INFO_BOARD_MENU, menu_info_board);               // Board Info >
     #if HAS_EXTRUDERS
-      // SUBMENU(MSG_INFO_THERMISTOR_MENU, menu_info_thermistors);  // Thermistors >
+      SUBMENU(MSG_INFO_THERMISTOR_MENU, menu_info_thermistors);  // Thermistors >
     #endif
   #endif
 

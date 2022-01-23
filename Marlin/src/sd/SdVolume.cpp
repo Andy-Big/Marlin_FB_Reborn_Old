@@ -330,6 +330,8 @@ bool SdVolume::init(DiskIODriver* dev, uint8_t part) {
   uint32_t totalBlocks, volumeStartBlock = 0;
   fat32_boot_t *fbs;
 
+  SERIAL_ECHO_MSG("SdVolume:init called with ", part);
+
   sdCard_ = dev;
   fatType_ = 0;
   allocSearchStart_ = 2;

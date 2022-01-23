@@ -3204,7 +3204,7 @@
 #if HAS_LCD_MENU
   // LCD timeout to status screen default is 15s
   #ifndef LCD_TIMEOUT_TO_STATUS
-    #define LCD_TIMEOUT_TO_STATUS 15000
+    #define LCD_TIMEOUT_TO_STATUS 30000
   #endif
   #if LCD_TIMEOUT_TO_STATUS
     #define SCREENS_CAN_TIME_OUT 1

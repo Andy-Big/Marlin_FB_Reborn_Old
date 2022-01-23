@@ -30,6 +30,10 @@
 #include "../../module/temperature.h"
 #include "../../sd/cardreader.h"
 #include "../../module/settings.h"
+#include "../../lcd/marlinui.h"
+#include "../../lcd/menu/menu.h"
+extern MarlinUI ui;
+
 
 #ifdef SD_FINISHED_RELEASECOMMAND
   #include "../queue.h"
@@ -115,13 +119,15 @@ void GcodeSuite::M1001() {
   // Re-select the last printed file in the UI
   TERN_(SD_REPRINT_LAST_SELECTED_FILE, ui.reselect_last_file());
 
-  #ifdef RS_ADDSETTINGS
+  #if ENABLED(RS_ADDSETTINGS)
     if (extra_settings.poweroff_at_printed)
     {
+      extra_settings.sscreen_need_draw = true;
       extra_settings.poweroff_at_printed = false;
-      gcode.process_subcommands_now_P(PSTR("M81"));   // Power Off command
+      ui.goto_screen(ui.poweroff_wait_screen);
+//      gcode.process_subcommands_now_P(PSTR("M81"));   // Power Off command
     }
-  #endif  // #ifdef RS_ADDSETTINGS
+  #endif  // RS_ADDSETTINGS
 
 }
 

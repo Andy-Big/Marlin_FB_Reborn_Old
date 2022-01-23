@@ -131,9 +131,9 @@ uint16_t Planner::cleaning_buffer_counter;      // A counter to disable queuing 
 uint8_t Planner::delay_before_delivering;       // This counter delays delivery of blocks when queue becomes empty to allow the opportunity of merging blocks
 
 planner_settings_t Planner::settings;           // Initialized by settings.load()
-#ifdef RS_ADDSETTINGS
+#if ENABLED(RS_ADDSETTINGS)
   planner_axinvert_t Planner::invert_axis;
-#endif  // #ifdef RS_ADDSETTINGS
+#endif  // RS_ADDSETTINGS
 
 #if ENABLED(LASER_POWER_INLINE)
   laser_state_t Planner::laser_inline;          // Current state for blocks

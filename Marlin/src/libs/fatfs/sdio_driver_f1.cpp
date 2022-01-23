@@ -40,7 +40,7 @@ uint8_t SD_Cmd(uint8_t cmd, uint32_t arg, uint16_t response_type, uint32_t *resp
 	SDIO->CMD = (uint32_t)(response_type | cmd); 
 	SDIO->CMD |= SDIO_CMD_CPSMEN;
 
-	while( (SDIO->STA & SDIO_STA_CMD_FLAGS) == 0){asm("nop");};
+	while( (SDIO->STA & SDIO_STA_CMD_FLAGS) == 0){asm("nop");}; 
 
 	if (response_type != SDIO_RESP_NONE) {
 		response[0] =	SDIO->RESP1;

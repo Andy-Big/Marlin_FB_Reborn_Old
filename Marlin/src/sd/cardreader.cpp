@@ -743,7 +743,7 @@ void CardReader::printSelectedFilename() {
   SERIAL_EOL();
 }
 
-void CardReader::mount() {
+void CardReader::mount(bool wifi) {
   flag.mounted = false;
   if (root.isOpen()) root.close();
 
@@ -752,13 +752,24 @@ void CardReader::mount() {
       && !driver->init(SD_SPI_SPEED, LCD_SDSS)
     #endif
   ) SERIAL_ECHO_MSG(STR_SD_INIT_FAIL);
-  else if (!volume.init(driver))
-    SERIAL_ERROR_MSG(STR_SD_VOL_INIT_FAIL);
-  else if (!root.openRoot(&volume))
-    SERIAL_ERROR_MSG(STR_SD_OPENROOT_FAIL);
-  else {
-    flag.mounted = true;
-    SERIAL_ECHO_MSG(STR_SD_CARD_OK);
+  else
+  {
+    bool res = volume.init(driver);
+    if (!res && wifi)
+        res = volume.init(driver);
+    if (!res)
+    {
+      if (wifi)
+        SERIAL_ERROR_MSG("WIFI: " STR_SD_VOL_INIT_FAIL);
+      else
+        SERIAL_ERROR_MSG(STR_SD_VOL_INIT_FAIL);
+    }
+    else if (!root.openRoot(&volume))
+      SERIAL_ERROR_MSG(STR_SD_OPENROOT_FAIL);
+    else {
+      flag.mounted = true;
+      SERIAL_ECHO_MSG(STR_SD_CARD_OK);
+    }
   }
 
   if (flag.mounted)

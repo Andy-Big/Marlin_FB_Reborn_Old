@@ -1036,7 +1036,11 @@ constexpr uint8_t epps = ENCODER_PULSES_PER_STEP;
 
       // This runs every ~100ms when idling often enough.
       // Instead of tracking changes just redraw the Status Screen once per second.
-      if (on_status_screen() && !lcd_status_update_delay--) {
+      #if ENABLED(RS_STYLE_COLOR_UI)
+        if ((on_status_screen() || on_poweroff_screen()) && !lcd_status_update_delay--) {
+      #else
+        if (on_status_screen() && !lcd_status_update_delay--) {
+      #endif
         lcd_status_update_delay = TERN(HAS_MARLINUI_U8GLIB, 12, 9);
         if (max_display_update_time) max_display_update_time--;  // Be sure never go to a very big number
         refresh(LCDVIEW_REDRAW_NOW);

@@ -33,6 +33,7 @@
 #include "../../module/planner.h"
 #include "../../module/temperature.h"
 #include "../../MarlinCore.h"
+#include "../../module/settings.h"
 
 #if ENABLED(SINGLENOZZLE_STANDBY_TEMP)
   #include "../../module/tool_change.h"
@@ -234,6 +235,11 @@ void menu_tune() {
 
   #endif // HAS_FAN
 */
+
+  #if ENABLED(RS_ADDSETTINGS)
+    EDIT_ITEM(bool, MSG_POWEROFF_AT_END, &extra_settings.poweroff_at_printed);
+  #endif  // RS_ADDSETTINGS
+
   END_MENU();
 }
 

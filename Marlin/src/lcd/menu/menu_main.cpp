@@ -238,31 +238,34 @@ void menu_main() {
 
     #if !ENABLED(RS_STYLE_COLOR_UI)
       #if ENABLED(SDSUPPORT)
-        const bool card_open = card_detected && card.isFileOpen(), card_detected = card.isMounted();
+        const bool card_detected = card.isMounted();
+        const bool card_open = card_detected && card.isFileOpen();
       #endif
-      auto sdcard_menu_items = [&]{
-        #if ENABLED(MENU_ADDAUTOSTART)
-          ACTION_ITEM(MSG_RUN_AUTO_FILES, card.autofile_begin); // Run Auto Files
-        #endif
-
-        if (card_detected) {
-          if (!card_open) {
-            #if PIN_EXISTS(SD_DETECT)
-              GCODES_ITEM(MSG_CHANGE_MEDIA, PSTR("M21"));       // M21 Change Media
-            #else                                               // - or -
-              GCODES_ITEM(MSG_RELEASE_MEDIA, PSTR("M22"));      // M22 Release Media
-            #endif
-            SUBMENU(MSG_MEDIA_MENU, MEDIA_MENU_GATEWAY);        // Media Menu (or Password First)
-          }
-        }
-        else {
-          #if PIN_EXISTS(SD_DETECT)
-            ACTION_ITEM(MSG_NO_MEDIA, nullptr);                 // "No Media"
-          #else
-            GCODES_ITEM(MSG_ATTACH_MEDIA, PSTR("M21"));         // M21 Attach Media
+      #if BOTH(SDSUPPORT, MEDIA_MENU_AT_TOP)
+        auto sdcard_menu_items = [&]{
+          #if ENABLED(MENU_ADDAUTOSTART)
+            ACTION_ITEM(MSG_RUN_AUTO_FILES, card.autofile_begin); // Run Auto Files
           #endif
-        }
-      };
+
+          if (card_detected) {
+            if (!card_open) {
+              #if PIN_EXISTS(SD_DETECT)
+                GCODES_ITEM(MSG_CHANGE_MEDIA, PSTR("M21"));       // M21 Change Media
+              #else                                               // - or -
+                GCODES_ITEM(MSG_RELEASE_MEDIA, PSTR("M22"));      // M22 Release Media
+              #endif
+              SUBMENU(MSG_MEDIA_MENU, MEDIA_MENU_GATEWAY);        // Media Menu (or Password First)
+            }
+          }
+          else {
+            #if PIN_EXISTS(SD_DETECT)
+              ACTION_ITEM(MSG_NO_MEDIA, nullptr);                 // "No Media"
+            #else
+              GCODES_ITEM(MSG_ATTACH_MEDIA, PSTR("M21"));         // M21 Attach Media
+            #endif
+          }
+        };
+      #endif  // BOTH(SDSUPPORT, MEDIA_MENU_AT_TOP)
     #endif    // !ENABLED(RS_STYLE_COLOR_UI)
   #endif
 
@@ -287,10 +290,6 @@ void menu_main() {
 
     SUBMENU(MSG_TUNE, menu_tune);
 
-    #ifdef RS_ADDSETTINGS
-      EDIT_ITEM(bool, MSG_POWEROFF_AT_END, &extra_settings.poweroff_at_printed);
-    #endif  // #ifdef RS_ADDSETTINGS
-
     #if ENABLED(CANCEL_OBJECTS) && DISABLED(SLIM_LCD_MENUS)
       SUBMENU(MSG_CANCEL_OBJECT, []{ editable.int8 = -1; ui.goto_screen(menu_cancelobject); });
     #endif
@@ -313,6 +312,11 @@ void menu_main() {
     #endif
 
     SUBMENU(MSG_MOTION, menu_motion);
+
+    #if ENABLED(RS_ADDSETTINGS)
+      EDIT_ITEM(bool, MSG_POWEROFF_AT_END, &extra_settings.poweroff_at_printed);
+    #endif  // RS_ADDSETTINGS
+
   }
 
   SUBMENU(MSG_CONFIGURATION, menu_configuration);

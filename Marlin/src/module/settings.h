@@ -32,14 +32,14 @@
 #endif
 
 
-#ifdef RS_ADDSETTINGS
+#if ENABLED(RS_ADDSETTINGS)
   typedef struct
   {
       bool poweroff_at_printed;
-
+      bool sscreen_need_draw;
   } extra_settings_t;
   extern extra_settings_t extra_settings;
-#endif  // #ifdef RS_ADDSETTINGS
+#endif  // RS_ADDSETTINGS
 
 class MarlinSettings {
   public:
