@@ -1923,7 +1923,7 @@ void Temperature::manage_heater() {
     #if HAS_HOTEND_THERMISTOR
       // Thermistor with conversion table?
       #if ENABLED(RS_ADDSETTINGS)
-        SCAN_THERMISTOR_TABLE(thermistors_data.heater_type[e]->table, thermistors_data.heater_type[e]->table_size);
+        SCAN_THERMISTOR_TABLE(thermistor_types[thermistors_data.heater_type[e]].table, thermistor_types[thermistors_data.heater_type[e]].table_size);
       #else
         const temp_entry_t(*tt)[] = (temp_entry_t(*)[])(heater_ttbl_map[e]);
         SCAN_THERMISTOR_TABLE((*tt), heater_ttbllen_map[e]);
@@ -1941,7 +1941,7 @@ void Temperature::manage_heater() {
       return user_thermistor_to_deg_c(CTI_BED, raw);
     #elif TEMP_SENSOR_BED_IS_THERMISTOR
       #if ENABLED(RS_ADDSETTINGS)
-        SCAN_THERMISTOR_TABLE(thermistors_data.bed_type->table, thermistors_data.bed_type->table_size);
+        SCAN_THERMISTOR_TABLE(thermistor_types[thermistors_data.bed_type].table, thermistor_types[thermistors_data.bed_type].table_size);
       #else
         SCAN_THERMISTOR_TABLE(TEMPTABLE_BED, TEMPTABLE_BED_LEN);
       #endif  // RS_ADDSETTINGS

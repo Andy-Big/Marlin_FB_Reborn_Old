@@ -255,6 +255,101 @@ void menu_backlash();
 //
 #if SHOW_MENU_ADVANCED_TEMPERATURE
 
+  #if ENABLED(RS_ADDSETTINGS)
+    void menu_thermistors_list();
+
+    static  uint8_t therm_num = 0;
+
+    void thermistors_set_type(uint32_t type) {
+      if (therm_num < 255)
+      {
+        thermistors_data.heater_type[therm_num] = type;
+      }
+      else
+      {
+        thermistors_data.bed_type = type;
+      }
+      ui.goto_previous_screen();
+    }
+
+    void menu_thermistors_hot0_list() {
+      therm_num = 0;
+      menu_thermistors_list();
+    }
+
+    #if (HOTENDS > 1)
+      void menu_thermistors_hot1_list() {
+        therm_num = 1;
+        menu_thermistors_list();
+      }
+    #endif
+
+    void menu_thermistors_bed_list() {
+      therm_num = 255;
+      menu_thermistors_list();
+    }
+
+    void menu_thermistors_list() {
+      START_MENU();
+
+      #if THERMISTORS_TYPES_COUNT > 0
+        ACTION_ITEM_P(thermistor_types[0].name, []{ thermistors_set_type(0); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 1
+        ACTION_ITEM_P(thermistor_types[1].name, []{ thermistors_set_type(1); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 2
+        ACTION_ITEM_P(thermistor_types[2].name, []{ thermistors_set_type(2); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 3
+        ACTION_ITEM_P(thermistor_types[3].name, []{ thermistors_set_type(3); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 4
+        ACTION_ITEM_P(thermistor_types[4].name, []{ thermistors_set_type(4); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 5
+        ACTION_ITEM_P(thermistor_types[5].name, []{ thermistors_set_type(5); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 6
+        ACTION_ITEM_P(thermistor_types[6].name, []{ thermistors_set_type(6); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 7
+        ACTION_ITEM_P(thermistor_types[7].name, []{ thermistors_set_type(7); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 8
+        ACTION_ITEM_P(thermistor_types[8].name, []{ thermistors_set_type(8); });
+      #endif
+      #if THERMISTORS_TYPES_COUNT > 9
+        ACTION_ITEM_P(thermistor_types[9].name, []{ thermistors_set_type(9); });
+      #endif
+
+      END_MENU();
+    }
+
+    void menu_advanced_thermistors() {
+      START_MENU();
+
+      char itemlbl[64];
+      strcpy(itemlbl, LCD_STR_E0);
+      strcat(itemlbl, ": ");
+      strcat(itemlbl, thermistor_types[thermistors_data.heater_type[0]].name);
+      SUBMENU_P(itemlbl, menu_thermistors_hot0_list);
+
+      #if (HOTENDS > 1)
+        strcpy(itemlbl, LCD_STR_E1);
+        strcat(itemlbl, ": ");
+        strcat(itemlbl, thermistor_types[thermistors_data.heater_type[1]].name);
+        SUBMENU_P(itemlbl, menu_thermistors_hot1_list);
+      #endif
+
+      strcpy(itemlbl, "BED: ");
+      strcat(itemlbl, thermistor_types[thermistors_data.bed_type].name);
+      SUBMENU_P(itemlbl, menu_thermistors_bed_list);
+
+      END_MENU();
+    }
+  #endif  // RS_ADDSETTINGS
+
   void menu_advanced_temperature() {
     START_MENU();
     // BACK_ITEM(MSG_ADVANCED_SETTINGS);
@@ -343,6 +438,10 @@ void menu_backlash();
       #if ENABLED(PID_AUTOTUNE_MENU)
         EDIT_ITEM_FAST_N(int3, H_CHAMBER, MSG_PID_AUTOTUNE_E, &autotune_temp_chamber, PREHEAT_1_TEMP_CHAMBER, CHAMBER_MAX_TARGET, []{ _lcd_autotune(H_CHAMBER); });
       #endif
+    #endif
+
+    #if ENABLED(RS_ADDSETTINGS)
+      SUBMENU(MSG_MENU_THERMISTORS, menu_advanced_thermistors);
     #endif
 
     END_MENU();

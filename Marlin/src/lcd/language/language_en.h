@@ -763,6 +763,8 @@ namespace Language_en {
       LSTR MSG_E_INVERT                     = STR_E _UxGT(" Invert");
 
       LSTR MSG_POWEROFF_AT_END              = _UxGT("Power off at print done");
+
+      LSTR MSG_MENU_THERMISTORS             = _UxGT("Thermistors types");
     #endif
 
     LSTR MSG_WAIT_NOZZLE_COOL               = _UxGT("Waiting for the nozzle to cool down.");

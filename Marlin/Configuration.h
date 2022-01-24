@@ -1893,7 +1893,12 @@
   #define EEPROM_AUTO_INIT  // Init EEPROM automatically on any errors.
 #endif
 
-// #define EEPROM_W25Q
+/*
+MKS Robin EEPROM:
+EEPROM_SD
+EEPROM_W25Q
+*/
+#define EEPROM_W25Q
 #if ENABLED(EEPROM_W25Q)
   #undef SDCARD_EEPROM_EMULATION
   #undef USE_REAL_EEPROM

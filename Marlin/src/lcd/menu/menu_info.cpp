@@ -112,25 +112,29 @@ void menu_info_thermistors() {
       char tname[64];
       strcpy(tname, LCD_STR_E0);
       strcat(tname, ": ");
-      strcat(tname, thermistors_data.heater_type[0]->name);
-
-      // tft_string.set(LCD_STR_E0);
-      // tft_string.add(": ");
-      // tft_string.add(thermistors_data.heater_type[0]->name);
+      strcat(tname, thermistor_types[thermistors_data.heater_type[0]].name);
       STATIC_ITEM_P(PSTR(tname), SS_INVERT);
     #else
       STATIC_ITEM_P(PSTR(LCD_STR_E0 ": " THERMISTOR_NAME), SS_INVERT);
-    #endif
+    #endif  // RS_ADDSETTINGS
     PSTRING_ITEM(MSG_INFO_MIN_TEMP, STRINGIFY(HEATER_0_MINTEMP), SS_LEFT);
     PSTRING_ITEM(MSG_INFO_MAX_TEMP, STRINGIFY(HEATER_0_MAXTEMP), SS_LEFT);
     STATIC_ITEM(TERN(WATCH_HOTENDS, MSG_INFO_RUNAWAY_ON, MSG_INFO_RUNAWAY_OFF), SS_LEFT);
   #endif
 
-  #if TEMP_SENSOR_1 != 0
+  #if HOTENDS > 1
     #undef THERMISTOR_ID
     #define THERMISTOR_ID TEMP_SENSOR_1
     #include "../thermistornames.h"
-    STATIC_ITEM_P(PSTR(LCD_STR_E1 ": " THERMISTOR_NAME), SS_INVERT);
+    #if ENABLED(RS_ADDSETTINGS)
+      char tname[64];
+      strcpy(tname, LCD_STR_E1);
+      strcat(tname, ": ");
+      strcat(tname, thermistor_types[thermistors_data.heater_type[1]].name);
+      STATIC_ITEM_P(PSTR(tname), SS_INVERT);
+    #else
+      STATIC_ITEM_P(PSTR(LCD_STR_E1 ": " THERMISTOR_NAME), SS_INVERT);
+    #endif  // RS_ADDSETTINGS
     PSTRING_ITEM(MSG_INFO_MIN_TEMP, STRINGIFY(HEATER_1_MINTEMP), SS_LEFT);
     PSTRING_ITEM(MSG_INFO_MAX_TEMP, STRINGIFY(HEATER_1_MAXTEMP), SS_LEFT);
     STATIC_ITEM(TERN(WATCH_HOTENDS, MSG_INFO_RUNAWAY_ON, MSG_INFO_RUNAWAY_OFF), SS_LEFT);
@@ -200,7 +204,9 @@ void menu_info_thermistors() {
     #undef THERMISTOR_ID
     #define THERMISTOR_ID TEMP_SENSOR_BED
     #include "../thermistornames.h"
-    STATIC_ITEM_P(PSTR("BED: " THERMISTOR_NAME), SS_INVERT);
+    strcpy(tname, "BED: ");
+    strcat(tname, thermistor_types[thermistors_data.bed_type].name);
+    STATIC_ITEM_P(PSTR(tname), SS_INVERT);
     PSTRING_ITEM(MSG_INFO_MIN_TEMP, STRINGIFY(BED_MINTEMP), SS_LEFT);
     PSTRING_ITEM(MSG_INFO_MAX_TEMP, STRINGIFY(BED_MAXTEMP), SS_LEFT);
     STATIC_ITEM(TERN(WATCH_BED, MSG_INFO_RUNAWAY_ON, MSG_INFO_RUNAWAY_OFF), SS_LEFT);

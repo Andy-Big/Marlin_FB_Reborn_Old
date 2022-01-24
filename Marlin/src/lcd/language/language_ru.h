@@ -924,6 +924,8 @@ namespace Language_ru {
       LSTR MSG_E_INVERT                     = STR_E _UxGT(" Инверсия");
 
       LSTR MSG_POWEROFF_AT_END              = _UxGT("Выключить после печати");
+
+      LSTR MSG_MENU_THERMISTORS             = _UxGT("Типы термисторов");
     #endif
 
     LSTR MSG_WAIT_NOZZLE_COOL               = _UxGT("Ожидание остывания сопла.");

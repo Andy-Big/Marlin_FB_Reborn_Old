@@ -507,7 +507,7 @@ typedef struct SettingsDataStruct {
 
   #if ENABLED(RS_ADDSETTINGS)
     planner_axinvert_t invert_axes;
-    thermistors_data_t thermistors_data;
+   thermistors_data_t thermistors_data;
   #endif  // RS_ADDSETTINGS
 } SettingsData;
 
@@ -1460,7 +1460,7 @@ void MarlinSettings::postprocess() {
       EEPROM_WRITE(planner.invert_axis);
 
       // Thermistors type
-      EEPROM_WRITE(thermistors_data);
+     EEPROM_WRITE(thermistors_data);
     #endif  // RS_ADDSETTINGS
 
     //
@@ -2381,8 +2381,12 @@ void MarlinSettings::postprocess() {
         EEPROM_READ((uint8_t *)&planner.invert_axis, sizeof(planner.invert_axis));
 
         // Thermistors type
-        EEPROM_READ((uint8_t *)&thermistors_data, sizeof(thermistors_data));
+       EEPROM_READ((uint8_t *)&thermistors_data, sizeof(thermistors_data));
       #endif  // RS_ADDSETTINGS
+
+
+      DEBUG_ECHO_MSG("EEPROM Readed");
+
 
       //
       // Validate Final Size and CRC
@@ -2405,6 +2409,8 @@ void MarlinSettings::postprocess() {
       }
       else
         DEBUG_ECHO_MSG("EEPROM read success. Index: ", eeprom_index - (EEPROM_OFFSET), " Size: ", datasize());
+
+      delay(1000);
 
       if (!validating && !eeprom_error) postprocess();
 
@@ -2629,21 +2635,21 @@ void MarlinSettings::reset() {
       planner.invert_axis.invert_axis[E_AXIS] = INVERT_E0_DIR;
 
       // Thermistors type
-      thermistors_data.heater_type[0] = (thermistor_types_t*)&(thermistor_types[0]);
+      thermistors_data.heater_type[0] = 0;
       #if (HOTENDS > 1)
-        thermistors_data.heater_type[1] = &(thermistor_types[1]);
+        thermistors_data.heater_type[1] = 0;
       #endif
-      thermistors_data.bed_type = (thermistor_types_t*)&(thermistor_types[0]);
+      thermistors_data.bed_type = 0;
       for (uint8_t i = 0;  i < THERMISTORS_TYPES_COUNT; i++)
       {
         if (thermistor_types[i].type == TEMP_SENSOR_0)
-          thermistors_data.heater_type[0] = (thermistor_types_t*)&(thermistor_types[i]);
+          thermistors_data.heater_type[0] = i;
         #if (HOTENDS > 1)
           if (thermistor_types[i].type == TEMP_SENSOR_1)
-            thermistors_data.heater_type[1] = &(thermistor_types[i]);
+            thermistors_data.heater_type[1] = i;
         #endif
         if (thermistor_types[i].type == TEMP_SENSOR_BED)
-          thermistors_data.bed_type = (thermistor_types_t*)&(thermistor_types[i]);
+          thermistors_data.bed_type = i;
       }
     #endif  // RS_ADDSETTINGS
   }
