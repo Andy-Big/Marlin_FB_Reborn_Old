@@ -33,6 +33,8 @@ extern const uint16_t marlin_logo_320x240x16[];
 extern const uint16_t marlin_logo_480x320x16[];
 extern const uint16_t background_320x30x16[];
 
+extern const uint8_t flowrate_64x64x4[];
+extern const uint8_t feedrate_64x64x4[];
 extern const uint8_t hotend_64x64x4[];
 extern const uint8_t bed_64x64x4[], bed_heated_64x64x4[];
 extern const uint8_t chamber_64x64x4[], chamber_heated_64x64x4[];
@@ -68,6 +70,10 @@ extern const uint8_t slider_8x16x4[];
 
 enum MarlinImage : uint8_t {
   imgBootScreen = 0x00,
+  #if ENABLED(RS_STYLE_COLOR_UI)
+    imgFeedRate,
+    imgFlowRate,
+  #endif
   imgHotEnd,
   imgBed,
   imgBedHeated,
@@ -78,8 +84,10 @@ enum MarlinImage : uint8_t {
   imgFanSlow1,
   imgFanFast0,
   imgFanFast1,
-  imgFeedRate,
-  imgFlowRate,
+  #if DISABLED(RS_STYLE_COLOR_UI)
+    imgFeedRate,
+    imgFlowRate,
+  #endif
   imgSD,
   imgMenu,
   imgSettings,
@@ -138,6 +146,8 @@ extern const tImage NoLogo;
 #endif
 extern const tImage Background320x30x16;
 
+extern const tImage FlowRate_64x64x4;
+extern const tImage FeedRate_64x64x4;
 extern const tImage HotEnd_64x64x4;
 extern const tImage Bed_64x64x4;
 extern const tImage Bed_Heated_64x64x4;
