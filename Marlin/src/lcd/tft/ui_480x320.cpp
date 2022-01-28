@@ -259,7 +259,7 @@ void draw_fan_status(uint16_t x, uint16_t y, const bool blink) {
   MarlinImage image;
 
 #if ENABLED(RS_STYLE_COLOR_UI)
-  TERN_(TOUCH_SCREEN, touch.add_control(FAN, x, y, 2, 96));
+  TERN_(TOUCH_SCREEN, touch.add_control(FAN, x, y, ITEM_WIDTH2, 96));
   tft.canvas(x, y, ITEM_WIDTH2, 96);
   tft.set_background(COLOR_BACKGROUND);
 
